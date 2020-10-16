@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->enum('status', ['pending', 'processing', 'completed', 'decline'])->default('pending');
             $table->bigInteger('total');
+            $table->tinyInteger('coupon_applied')->default(0);
             $table->integer('item_count');
             $table->tinyInteger('paid')->default(0);
             $table->enum('payment_method', ['cash_on_delivery', 'visa', 'paypal']);

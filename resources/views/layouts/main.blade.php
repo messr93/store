@@ -91,10 +91,8 @@
 <!-- Humberger End -->
 
 @include('frontend.includes.header')
-<div class="py-3">
-    <div id="app">
-        @yield('content')
-    </div>
+<div class="py-3" id="app">
+    @yield('content')
 </div>
 
 

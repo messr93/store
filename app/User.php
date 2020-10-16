@@ -51,6 +51,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Product::class, 'carts', 'user_id', 'product_id');
     }
 
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
+
     ############################################### Other functions  ###############################################
     public function cartSubTotal(){
         return $this->cartItems->transform(function($item){return $item->price*$item->qty; })->sum();

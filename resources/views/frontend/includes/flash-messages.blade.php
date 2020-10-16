@@ -1,10 +1,10 @@
-@if(session()->has('success'))
+'@if(session()->has('success'))
     <div class="alert alert-success">
-        {{ session('success') }}
+        {{ session()->pull('success') }}
     </div>
 @endif
 @if(session()->has('error'))
     <div class="alert alert-success">
-        {{ session('error') }}
+        {{ session()->pull('error') }}
     </div>
 @endif

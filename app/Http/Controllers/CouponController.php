@@ -7,79 +7,20 @@ use Illuminate\Http\Request;
 
 class CouponController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function __construct()
     {
-        //
+        $this->middleware('auth');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    public function applyCoupon(Request $request){
+        $coupon = Coupon::where('code', $request->input('code'))->where('consumed', 0)->first();
+        if(is_null($coupon))        // coupon not here or consumed
+            return response()->json(['message' => 'Sry This coupon not valid'], 404);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Coupon  $coupon
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Coupon $coupon)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Coupon  $coupon
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Coupon $coupon)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Coupon  $coupon
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Coupon $coupon)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Coupon  $coupon
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Coupon $coupon)
-    {
-        //
+        session()->put('coupon', ['user_id' => $request->user()->id, 'coupon_id' => $coupon->id, 'type' => $coupon->type, 'value' => $coupon->value]);
+        $coupon->consumed = 1;
+        $coupon->save();
+        return response()->json(['message' => 'Coupon applied successfully, use it in thi session :)', 'coupon' => session('coupon')], 200);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\Category;
+use App\Coupon;
 use App\Order;
 use App\OrderProduct;
 use Illuminate\Http\Request;
@@ -20,7 +21,15 @@ class OrderController extends Controller
     public function index()
     {
 
-        return view('frontend.pages.orders');
+        return view('frontend.order.index');
+    }
+
+    public function allData(){
+        $orders = auth()->user()->orders;
+        if($orders->count() < 1)
+            return response()->json(['message' => 'You have no orders yet'], 404);
+        return response()->json(['orders' => $orders], 200);
+
     }
 
     /**
@@ -44,14 +53,19 @@ class OrderController extends Controller
 
         $request->validate($this->getValidateRules());      // validation
 
+        $data = $request->except(['_token']);
         $user = $request->user();
         $total = $user->cartSubTotal();
+        if(session()->has('coupon')){
+            $total = $total-Coupon::calculateMinus($total);         // if any coupon in session apply it, then remove
+            $data['coupon_applied'] = 1;
+            session()->forget('coupon');        // delete the coupon
+        }
         $cartItems = Cart::where('user_id', $user->id)->get();          //getting data
 
-        $data = $request->except(['_token']);
         $data['order_number'] = uniqid('Order_'.$total);        //initialize order
         $data['user_id'] = $user->id;
-        $data['total'] = $total;                                        // TODO apply coupon here
+        $data['total'] = $total;
         $data['item_count'] = $cartItems->count();
 
         $order = Order::create($data);          // create the order record
@@ -65,29 +79,32 @@ class OrderController extends Controller
             $item->delete();                // remove items from cart
         }
 
-        if($data['payment_method'] == 'cash_on_delivery'){    /// cash on delivery, go monitor your order
-            return view('frontend.pages.orders')->with('success', 'Your order recorded');
+        if($data['payment_method'] == 'cash_on_delivery'){    /// cash on delivery, go monitor your order DONE
+            return view('frontend.order.index')->with('success', 'Your order recorded');
         }else{
-            $checkoutId =  $this->getCheckoutId($total);          // id form payment gateway, going to js
             session()->put('unpaid_order_id', $order->id);
+            $checkoutId = "";
+            $checkoutId =  $this->getCheckoutId($total);          // id form payment gateway, going to js
+
+            if(!$checkoutId)
+                return view('frontend.order.index')->with('error', 'Something wrong with payment, pls try here again');    // in case, payment gateway never return token
             return view('frontend.pages.payment', ['checkoutId' => $checkoutId]);       // go next page prove payment
         }
-
     }
+
 
     ###### in case of payment VISA/MASTERCARD ########
     public function finishOrder(){          // receive payment status here
 
         $status = $this->getPaymentStatus(request('id'));
-        if(isset($status['id'])){        //
+        if(isset($status['id'])){
+
             if(session('unpaid_order_id')){
-                Order::where('id', session()->pull('unpaid_order_id'))->update(['paid' => 1, 'payment_id' => $status['id']]);
+                Order::where('id', session()->pull('unpaid_order_id'))->update(['paid' => 1, 'payment_id' => $status['id'], 'status' => 'processing']);
             }
-
-            return view('frontend.pages.orders')->with('success', 'Your order recorded');      //order done go monitor it
-
+            return view('frontend.order.index')->with('success', 'Your order recorded');      //order done go monitor it
         }else{
-            return 'nope';
+            return view('frontend.order.index')->with('error', 'Something wrong with payment, pls try here again');    // in case, payment gateway never return token
         }
     }
 
@@ -99,7 +116,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return $order;
     }
 
     /**

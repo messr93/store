@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\Category;
+use App\Coupon;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -16,10 +17,12 @@ class CartController extends Controller
 
     public function index()
     {
+
         $items = auth()->user()->cartItems;      // all items in cart for this user
         $subTotal = $this->subTotal($items);
-        $categories = Category::topCategories();     /// most 11 categories having products
-        return view('frontend.pages.cart', ['items'=> $items, 'subTotal'=> $subTotal , 'categories' => $categories]);
+        $minus = Coupon::calculateMinus($subTotal);
+        $total = $subTotal - $minus;
+        return view('frontend.pages.cart', ['items'=> $items, 'subTotal'=> $subTotal, 'total' => $total, 'minus' => $minus]);
     }
 
     public function create()
@@ -63,7 +66,7 @@ class CartController extends Controller
         $cart->qty = $request->qty;
         $cart->save();
 
-        $subTotal = $request->user()->cartSubTotal();
+        $subTotal = $request->user()->cartSubTotal();                       // TODO Coupon have no effext yet
         return response()->json(['cart' => $cart, 'subTotal' => $subTotal]);
     }
 
@@ -76,9 +79,11 @@ class CartController extends Controller
 
     public function checkout(){     /// go to checkout page ///
 
-        $items = auth()->user()->cartItems;
+        $items = auth()->user()->cartItems;      // all items in cart for this user
         $subTotal = $this->subTotal($items);
-        return view('frontend.pages.checkout', ['items'=> $items, 'subTotal'=> $subTotal]);
+        $minus = Coupon::calculateMinus($subTotal);
+        $total = $subTotal - $minus;
+        return view('frontend.pages.checkout', ['items'=> $items, 'subTotal'=> $subTotal, 'total' => $total, 'minus' => $minus]);
     }
 
 
@@ -88,5 +93,6 @@ class CartController extends Controller
             $total += $item->qty * $item->product->finalPrice();
         return $total;
     }
+
 
 }

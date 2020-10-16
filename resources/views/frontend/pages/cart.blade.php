@@ -61,12 +61,17 @@
                         <a href="{{route('shop.index')}}" class="primary-btn cart-btn"> << CONTINUE SHOPPING</a>
                     </div>
                 </div>
+                <div class="col-lg-12">
+                    <div class="alert mt-2" id="coupon_alert" style="display: none">
+
+                    </div>
+                </div>
                 <div class="col-lg-6">
                     <div class="shoping__continue">
                         <div class="shoping__discount">
                             <h5>Discount Codes</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Enter your coupon code">
+                            <form id="apply_coupon">
+                                <input type="text" name="coupon_code" id="coupon_code" placeholder="Enter your coupon code">
                                 <button type="submit" class="site-btn">APPLY COUPON</button>
                             </form>
                         </div>
@@ -76,8 +81,9 @@
                     <div class="shoping__checkout">
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Subtotal <span id="subtotal">${{ $subTotal }}</span></li>
-                            <li>Total <span id="total">${{ $subTotal }}</span></li>             {{--TODO apply coupon here--}}
+                            <li>Subtotal <span id="subtotal" class="text-dark">${{ $subTotal }}</span></li>
+                            <li id="total_minus">Minus <span id="minus" class="text-success">-${{ $minus }}</span></li>
+                            <li>Total <span id="total">${{ $total }}</span></li>             {{--TODO apply coupon here--}}
                         </ul>
                         <a href="{{ route('cart.checkout') }}" class="primary-btn" id="go_checkout">PROCEED TO CHECKOUT</a>
                     </div>
@@ -92,6 +98,7 @@
 @push('js')
 <script>
     $(document).ready(function(){
+
         ///// on quantity changed handle this
        $(document).on('change', '.qty', function(){
            if($(this).val() > 0){               // no minus here
@@ -114,9 +121,41 @@
                    }
                });
            }
-
        });
+        ///// on apply coupon //////////
 
+        $(document).on('submit', '#apply_coupon', function(event){
+            event.preventDefault();
+            var code = $('#coupon_code').val();
+            if(code){
+                $.ajax({
+                    url: "apply-coupon",
+                    method: "POST",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        code: code
+                    },
+                    success: function(data){
+                        var total = parseFloat(($('#total').text()).substring(1));
+                        var minus = parseFloat($('#minus').text());
+                        $('#coupon_alert').text('').removeClass('alert-danger').addClass('alert-success').text(data.message).show();
+
+                        if(data.coupon.type == "fixed_value"){
+                            minus = parseFloat(data.coupon.value);
+                        }else if(data.coupon.type == "percent"){
+                            minus = (data.coupon.value*total)/100;
+                        }
+
+                        $('#minus').text('-$'+minus);
+                        $('#total').text('$'+(total-minus));
+                    },
+                    error: function(err){
+                        $('#coupon_alert').text('').removeClass('alert-success').addClass('alert-danger').text(err.responseJSON.message).show();
+                    }
+                });
+            }
+
+        });
     });
 </script>
 @endpush

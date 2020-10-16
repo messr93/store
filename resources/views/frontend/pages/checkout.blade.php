@@ -1,6 +1,7 @@
 @extends('layouts.main')
 @section('content')
     @include('frontend.includes.search-bar')
+    @include('frontend.includes.flash-messages')
 
     <!-- Checkout Section Begin -->
     <section class="checkout spad">
@@ -89,8 +90,9 @@
                                         <li>{{ $item->product->name }} <span>${{ $item['price'] }}</span></li>
                                     @endforeach
                                 </ul>
-                                <div class="checkout__order__subtotal">Subtotal <span>${{ $subTotal }}</span></div>
-                                <div class="checkout__order__total">Total <span>${{ $subTotal }}</span></div>           {{--TODO apply coupon here--}}
+                                <div class="checkout__order__subtotal">Subtotal <span id="subtotal">${{ $subTotal }}</span></div>
+                                <div class="checkout__order__total">Minus <span id="minus" class="text-success">-${{ $minus }}</span></div>
+                                <div class="checkout__order__total">Total <span id="total">${{ $total }}</span></div>           {{--TODO apply coupon here--}}
                                 <div class="form-check">
                                     <label class="form-check-label" for="cash_on_delivery">
                                         <input type="radio" class="form-check-input payment_method" id="cash_on_delivery" name="payment_method" value="cash_on_delivery" checked>Cash on delivery

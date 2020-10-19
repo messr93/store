@@ -2029,29 +2029,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     var _this = this;
 
-    axios.get('my-orders').then(function (response) {
+    axios.get('order').then(function (response) {
       _this.orders = response.data.orders;
+      console.log(response.data.orders);
     })["catch"](function (err) {
       _this.notFoundMessage = err.response.data.message;
     });
   },
   methods: {
-    showDetails: function showDetails(id) {
+    showOrderDetails: function showOrderDetails(id) {
       window.location.assign('order/' + id);
     },
-    prepareDeletion: function prepareDeletion(id) {
-      this.deleteOrderId = id;
+    prepareDeletion: function prepareDeletion(orderId, arrayIndex) {
+      this.deleteOrderId = orderId;
+      this.deleteArrayIndex = arrayIndex;
       this.deleteModalShow = true;
     },
     deleteOrder: function deleteOrder() {
+      var _this2 = this;
+
       this.deleteModalShow = false;
 
-      if (this.deleteOrderId !== 0) {
-        alert('why you soo serious !!');
+      if (this.deleteOrderId !== 0 && this.deleteArrayIndex !== 0) {
+        axios["delete"]('order/' + this.deleteOrderId).then(function (response) {
+          _this2.orders.splice(_this2.deleteArrayIndex, 1); // removed from DB now let remove ir from page
+
+        })["catch"](function (err) {
+          console.log(err.response);
+        });
       }
     }
   },
@@ -2061,6 +2072,7 @@ __webpack_require__.r(__webpack_exports__);
       notFoundMessage: '',
       deleteModalShow: false,
       deleteOrderId: 0,
+      deleteArrayIndex: 0,
       deleteReason: ''
     };
   }
@@ -37741,7 +37753,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "tbody",
-            _vm._l(_vm.orders, function(order) {
+            _vm._l(_vm.orders, function(order, index) {
               return _c("tr", [
                 _c("td", { staticClass: "shoping__cart__item" }, [
                   _vm._v(_vm._s(order.order_number))
@@ -37755,11 +37767,15 @@ var render = function() {
                   _vm._v(" " + _vm._s(order.status))
                 ]),
                 _vm._v(" "),
+                _c("td", { staticClass: "shoping__cart__item" }, [
+                  _vm._v(" " + _vm._s(order.paid == 1 ? "Yes" : "Not Yet"))
+                ]),
+                _vm._v(" "),
                 _c(
                   "td",
                   {
                     staticClass: "shoping__cart__item__close",
-                    staticStyle: { width: "250px" }
+                    staticStyle: { width: "402px" }
                   },
                   [
                     _c(
@@ -37768,7 +37784,7 @@ var render = function() {
                         staticClass: "btn btn-info d-inline-block",
                         on: {
                           click: function($event) {
-                            return _vm.showDetails(order.id)
+                            return _vm.showOrderDetails(order.id)
                           }
                         }
                       },
@@ -37781,7 +37797,7 @@ var render = function() {
                         staticClass: "btn btn-danger d-inline-block",
                         on: {
                           click: function($event) {
-                            return _vm.prepareDeletion(order.id)
+                            return _vm.prepareDeletion(order.id, index)
                           }
                         }
                       },
@@ -37888,7 +37904,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "shoping__product" }, [_vm._v("Total price")]),
         _vm._v(" "),
-        _c("th", { staticClass: "shoping__product" }, [_vm._v("status")]),
+        _c("th", { staticClass: "shoping__product" }, [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "shoping__product" }, [_vm._v("Paid")]),
         _vm._v(" "),
         _c("th", [_vm._v("Actions")])
       ])

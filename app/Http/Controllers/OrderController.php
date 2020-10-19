@@ -21,33 +21,19 @@ class OrderController extends Controller
     public function index()
     {
 
-        return view('frontend.order.index');
-    }
-
-    public function allData(){
         $orders = auth()->user()->orders;
         if($orders->count() < 1)
             return response()->json(['message' => 'You have no orders yet'], 404);
         return response()->json(['orders' => $orders], 200);
-
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
 
@@ -55,13 +41,17 @@ class OrderController extends Controller
 
         $data = $request->except(['_token']);
         $user = $request->user();
+        $cartItems = Cart::where('user_id', $user->id)->get();          //getting data
+
+        if($cartItems->count() < 1)
+            abort(404);
+
         $total = $user->cartSubTotal();
-        if(session()->has('coupon')){
-            $total = $total-Coupon::calculateMinus($total);         // if any coupon in session apply it, then remove
+        $total = $total-Coupon::calculateMinus($total);
+        if(session()->has('coupon')){                   // if any coupon in session apply it, then remove
             $data['coupon_applied'] = 1;
             session()->forget('coupon');        // delete the coupon
         }
-        $cartItems = Cart::where('user_id', $user->id)->get();          //getting data
 
         $data['order_number'] = uniqid('Order_'.$total);        //initialize order
         $data['user_id'] = $user->id;
@@ -80,6 +70,7 @@ class OrderController extends Controller
         }
 
         if($data['payment_method'] == 'cash_on_delivery'){    /// cash on delivery, go monitor your order DONE
+
             return view('frontend.order.index')->with('success', 'Your order recorded');
         }else{
             session()->put('unpaid_order_id', $order->id);
@@ -93,7 +84,8 @@ class OrderController extends Controller
     }
 
 
-    ###### in case of payment VISA/MASTERCARD ########
+    ################################################ in case of payment VISA/MASTERCARD ########
+
     public function finishOrder(){          // receive payment status here
 
         $status = $this->getPaymentStatus(request('id'));
@@ -148,9 +140,19 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy(Request $request, Order $order)
     {
-        //
+        $user = $request->user();
+        if (($user->id !== $order->user_id )|| !($user->hasRole('admin')))
+            abort(401);
+
+        if($order->status == "pending"){
+            $order->delete();
+            return response()->json(['order' => $order], 200);
+        }else{
+            //  TODO notify admin that user want delete( soft delete) && change status code
+        }
+
     }
 
 

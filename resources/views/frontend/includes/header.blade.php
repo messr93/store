@@ -34,11 +34,23 @@
                                 <a href="{{ route('register') }}" class="d-inline-block">/ Register</a>
                             </div>
                         @else
+                            <div class="dropdown d-inline-block">
+                                <a href="#" style="position: relative; margin-right: 20px; color:black" class="dropdown-toggle" data-toggle="dropdown">
+                                     <i class="fa fa-bell" style="font-size: larger"></i>
+                                    <i class="badge badge-pill badge-danger" style="position: absolute; right:10px; top: 2px; font-size: 9px">5</i>
+                                 </a>
+                                <div class="dropdown-menu dropdown-menu-right mt-3" id="notify_menu">
+                                    <a class="dropdown-item" href="#">Link 1</a>
+                                    <a class="dropdown-item" href="#">Link 2</a>
+                                    <a class="dropdown-item" href="#">Link 3</a>
+                                </div>
+                            </div>
+
                             <div class="header__top__right__language">
-                                <span class="fa fa-user"> {{ auth()->user()->name }}</span>
+                                <img src="{{ url('uploads/user/'.auth()->user()->photo) }}" class="rounded-circle" style="width: 35px; heigh:35px; margin-right: 0px;">
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
-                                    <li><a href="#">Profile</a></li>
+                                    <li><a href="{{ route('profile.index') }}">Profile</a></li>
                                     <li><a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
                                     <form class="d-none" id="logout-form" action="{{route('logout')}}" method="post">@csrf</form>
                                 </ul>
@@ -80,7 +92,9 @@
                         <li>
                             <a href="{{ route('cart.index') }}"><i class="fa fa-shopping-bag"></i>
                                 @auth()
-                                 <span>{{ auth()->user()->cartItems->count() }}</span>
+                                    @if(auth()->user()->cartItems->count() > 0)
+                                         <span>{{ auth()->user()->cartItems->count() }}</span>
+                                    @endif
                                 @endauth
                             </a>
                         </li>

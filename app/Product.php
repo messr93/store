@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    //protected $table = 'products';
-    //protected $fillable = ['user_id', 'category_slug', 'name', 'slug', 'photo', 'details', 'price', 'discount', 'rating', 'description'];
-
-
+    protected $table = 'products';
+    protected $fillable = ['user_id', 'category', 'name', 'slug', 'photo', 'details', 'price', 'discount', 'rating', 'description', 'created_at', 'updated_at'];
+    public $timestamps = true;
 
 
 
@@ -23,6 +22,13 @@ class Product extends Model
     public function reviews(){
         return $this->hasMany(ProductReview::class);
     }
+    public function orders(){
+        return $this->belongsToMany(Order::class, 'order_products', 'product_id', 'order_id');
+    }
+    public function relatedPhotos(){
+        return $this->hasMany(ProductPhoto::class);
+    }
+
 
     ############################################### Other functions  ###############################################
     public function getRouteKeyName(){

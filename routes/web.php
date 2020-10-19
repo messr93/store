@@ -25,19 +25,35 @@ Route::resource('product', 'ProductController');
 ##
 
 Route::resource('shop', 'ShopController');
-###
+////////////
 
-Route::resource('cart', 'CartController');
-Route::get('cart-total', 'CartController@getTotal')->name('cart.total');
-Route::get('checkout', 'CartController@checkout')->name('cart.checkout');
-###
+Route::group(['middleware' => ['role:customer']], function(){
 
-Route::post('apply-coupon', 'CouponController@applyCoupon')->name('coupon.apply');
-###
+    Route::resource('order', 'OrderController');
+    Route::get('my-orders', 'ProfileController@myOrders')->name('profile.myOrders');
+    Route::get('finish-order', 'OrderController@finishOrder')->name('order.finishOrder');
 
-Route::resource('order', 'OrderController');
-Route::get('my-orders', 'OrderController@allData')->name('order.allData');
-Route::get('finish-order', 'OrderController@finishOrder')->name('order.finishOrder');
-###
+    Route::resource('cart', 'CartController');
+    Route::get('checkout', 'CartController@checkout')->name('cart.checkout');
+
+    Route::post('apply-coupon', 'CouponController@applyCoupon')->name('coupon.apply');
+
+    Route::get('shipping-details', 'ProfileController@shippingDetailsView')->name('profile.shippingDetailsView');
+
+});
+
+Route::group(['middleware' => ['role:vendor']], function(){
+
+    Route::get('my-products', 'ProfileController@myProducts')->name('profile.myProducts');
+    Route::delete('delete-product-for-vendor', 'ProductController@deleteForVendor')->name('product.deleteForVendor');
+});
+///////////
+
 Route::get('search/products', 'SearchController@searchProducts')->name('search.products');
+#####
+
+Route::get('profile', 'ProfileController@index')->name('profile.index');
+Route::post('update-profile-info', 'ProfileController@updateInfo')->name('profile.updateInfo');
+Route::get('change-password', 'ProfileController@changePasswordView')->name('profile.changePasswordView');
+Route::post('change-password', 'ProfileController@changePassword')->name('profile.changePassword');
 

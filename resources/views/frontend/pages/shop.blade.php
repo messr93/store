@@ -3,8 +3,7 @@
     @include('frontend.includes.search-bar')
     <!-- Product Section Begin -->
     <section class="product spad">
-        <div class="container">
-            <div class="row">
+        <div class="row">
                 <div class="col-lg-3 col-md-5">
                     <div class="sidebar">
                         <div class="sidebar__item">
@@ -196,7 +195,7 @@
                          <div class="col-lg-4 col-md-6 col-sm-6">
                              <a href="{{ route('product.show', $product->slug) }}">
                                 <div class="product__item">
-                                   <img src="{{ url('uploads/product/'.$product->photo) }}">
+                                   <img src="{{ url('uploads/product/cover/255x255/'.$product->photo) }}">
                                     <div class="product__item__text">
                                         <h6>{{ $product->name }}</h6>
                                         <h5>${{ $product->finalPrice() }}</h5>
@@ -215,7 +214,6 @@
                     </div>--}}
                 </div>
             </div>
-        </div>
     </section>
     <!-- Product Section End -->
 @endsection

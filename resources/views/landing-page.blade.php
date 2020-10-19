@@ -2,8 +2,7 @@
 @section('content')
     <!-- Hero Section Begin -->
     <section class="hero">
-        <div class="container">
-            <div class="row">
+        <div class="row">
                 <div class="col-lg-3">
                     <div class="hero__categories">
                         <div class="hero__categories__all">
@@ -45,7 +44,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </section>
     <!-- Hero Section End -->
 
@@ -59,7 +57,7 @@
                             <a href="{{ route('product.show', $product->slug) }}">
                                 <div class="product__discount__item">
                                     <div class="product__discount__item__pic set-bg"
-                                         data-setbg="{{ url('uploads/product/'.$product->photo) }}">
+                                         data-setbg="{{ url('uploads/product/cover/255x255/'.$product->photo) }}">
                                         <div class="product__discount__percent">-{{ $product->discount }}%</div>
                                     </div>
                                     <div class="product__discount__item__text">
@@ -100,7 +98,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 mix {{ $product->categ->slug }}">
                     <a href="{{ route('product.show', $product->slug) }}">
                         <div class="featured__item">
-                            <img src="{{ url('uploads/product/'.$product->photo) }}">
+                            <img src="{{ url('uploads/product/cover/255x255/'.$product->photo) }}">
                             <div class="product__item__text">
                                 <h6>{{ $product->name }}</h6>
                                 <h5>${{ $product->finalPrice() }}</h5>
@@ -127,7 +125,7 @@
                                     @foreach($chuckProducts as $product)
                                         <a href="{{ route('product.show', $product->slug) }}" class="latest-product__item">
                                             <div class="latest-product__item__pic">
-                                                <img src="{{ url('uploads/product/'.$product->photo) }}" alt="" style="height:110px ;width: 110px">
+                                                <img src="{{ url('uploads/product/cover/110x110/'.$product->photo) }}" alt="" style="height:110px ;width: 110px">
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6>{{ $product->name }}</h6>
@@ -149,7 +147,7 @@
                                     @foreach($chuckProducts as $product)
                                         <a href="{{ route('product.show', $product->slug) }}" class="latest-product__item">
                                             <div class="latest-product__item__pic">
-                                                <img src="{{ url('uploads/product/'.$product->photo) }}" alt="" style="height:110px ;width: 110px">
+                                                <img src="{{ url('uploads/product/cover/110x110/'.$product->photo) }}" alt="" style="height:110px ;width: 110px">
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6>{{ $product->name }}</h6>

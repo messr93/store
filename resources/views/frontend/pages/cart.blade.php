@@ -7,14 +7,13 @@
     @else
     <!-- Shoping Cart Section Begin -->
     <section class="shoping-cart spad">
-        <div class="container">
-            <div class="row">
+        <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__table">
                         <table>
                             <thead>
                             <tr>
-                                <th class="shoping__product">Products</th>
+                                <th class="shoping__product">Photo</th>
                                 <th class="shoping__product">Name</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
@@ -26,7 +25,7 @@
                             @foreach($items as $item)
                                 <tr id="{{$item->id}}">
                                     <td class="shoping__cart__item">
-                                        <img src="{{ url('uploads/product/'.$item->product->photo) }}" style="height: 100px; width: 100px" alt="">
+                                        <img src="{{ url('uploads/product/cover/110x110/'.$item->product->photo) }}" style="height: 100px; width: 100px" alt="">
                                         <h5>{{ $item->name }}</h5>
                                     </td>
                                     <td class="shoping__cart__item">
@@ -55,7 +54,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+        <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
                         <a href="{{route('shop.index')}}" class="primary-btn cart-btn"> << CONTINUE SHOPPING</a>
@@ -89,7 +88,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </section>
     <!-- Shoping Cart Section End -->
     @endif

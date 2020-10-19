@@ -14,12 +14,10 @@
             <div class="col-lg-9">
                 <div class="hero__search">
                     <div class="hero__search__form">
-                        <form action="#">
-                            <div class="hero__search__categories">
-                                All Categories
-                                <span class="arrow_carrot-down"></span>
-                            </div>
-                            <input type="text" placeholder="What do yo u need?">
+                        <form action="{{ route('search.products') }}" method="get">
+                            <input type="text" name="name" id="search_name" placeholder="What do yo u need?">
+                            <input type="hidden" id="search_details" name="details">
+                            <input type="hidden" id="search_description" name="description">
                             <button type="submit" class="site-btn">SEARCH</button>
                         </form>
                     </div>
@@ -38,5 +36,16 @@
     </div>
 </section>
 <!-- Hero Section End -->
+
+@push('js')
+    <script>
+        $(document).on('input', '#search_name', function(){
+            var searchValue = $(this).val();
+            console.log(searchValue);
+            $('#search_details').val(searchValue);
+            $('#search_description').val(searchValue);
+        })
+    </script>
+@endpush
 
 

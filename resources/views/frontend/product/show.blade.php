@@ -3,23 +3,21 @@
     @include('frontend.includes.search-bar')
     <!-- Product Details Section Begin -->
     <section class="product-details spad">
-        <div class="container">
-            <div class="row">
+        <div class="row">
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
-                            <img class="product__details__pic__item--large"
-                                 src="{{ url('uploads/product/'.$product->photo) }}" alt="">
+                            <img class="product__details__pic__item--large"                 {{-- cover photo--}}
+                                 src="{{ url('uploads/product/cover/1200x700/'.$product->photo) }}" alt="" >
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
-                            <img data-imgbigurl="img/product/details/product-details-2.jpg"
-                                 src="{{ url('uploads/product/'.$product->photo) }}" alt="">
-                            <img data-imgbigurl="img/product/details/product-details-3.jpg"
-                                 src="{{ url('uploads/product/'.$product->photo) }}" alt="">
-                            <img data-imgbigurl="img/product/details/product-details-5.jpg"
-                                 src="{{ url('uploads/product/'.$product->photo) }}" alt="">
-                            <img data-imgbigurl="img/product/details/product-details-4.jpg"
-                                 src="{{ url('uploads/product/'.$product->photo) }}" alt="">
+                            <img data-imgbigurl="{{ url('uploads/product/cover/1200x700/'.$product->photo) }}"           {{-- keep cover photo in carousel--}}
+                                 src="{{ url('uploads/product/cover/1200x700/'.$product->photo) }}" alt="">
+
+                            @foreach($product->relatedPhotos as $relatedPhoto)
+                             <img data-imgbigurl="{{ url('uploads/product/related/600x600/'.$relatedPhoto->photo) }}"       {{-- related photos --}}
+                                  src="{{ url('uploads/product/related/600x600/'.$relatedPhoto->photo) }}" alt="">
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -91,7 +89,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </section>
     <!-- Product Details Section End -->
 

@@ -8,11 +8,11 @@
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
                             <img class="product__details__pic__item--large"                 {{-- cover photo--}}
-                                 src="{{ url('uploads/product/cover/1200x700/'.$product->photo) }}" alt="" >
+                                 src="{{ url('uploads/product/cover/1200x700/'.$product->photo) }}" alt="" style="width: 555px; height: 450px">
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
                             <img data-imgbigurl="{{ url('uploads/product/cover/1200x700/'.$product->photo) }}"           {{-- keep cover photo in carousel--}}
-                                 src="{{ url('uploads/product/cover/1200x700/'.$product->photo) }}" alt="">
+                                 src="{{ url('uploads/product/cover/1200x700/'.$product->photo) }}" alt="" style="width: 123.75px; height: 123.75px">
 
                             @foreach($product->relatedPhotos as $relatedPhoto)
                              <img data-imgbigurl="{{ url('uploads/product/related/600x600/'.$relatedPhoto->photo) }}"       {{-- related photos --}}

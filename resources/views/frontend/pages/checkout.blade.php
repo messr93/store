@@ -4,6 +4,9 @@
     @include('frontend.includes.flash-messages')
 
     <!-- Checkout Section Begin -->
+    @if($items->count() == 0)
+        <h2 class="text-center">Your shopping cart is empty, <a href="{{ url('/') }}">Continue Shopping</a></h2>
+    @else
     <section class="checkout spad">
         <div class="checkout__form">
             <h4>Shipping Details</h4>
@@ -27,7 +30,7 @@
                                     <p>City<span>*</span></p>
                                     <input type="text"  id="city" name="city" value="{{ old('city') }}">
                                     @error('city')
-                                    <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -113,6 +116,7 @@
 
         </div>
     </section>
+    @endif
     <!-- Checkout Section End -->
 
 @endsection

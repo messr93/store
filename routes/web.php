@@ -1,5 +1,7 @@
 <?php
 
+use App\Product;
+use App\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,3 +59,4 @@ Route::post('update-profile-info', 'ProfileController@updateInfo')->name('profil
 Route::get('change-password', 'ProfileController@changePasswordView')->name('profile.changePasswordView');
 Route::post('change-password', 'ProfileController@changePassword')->name('profile.changePassword');
 
+Route::post('notification/mark-as-read', 'NotificationController@markAsRead')->name('notification.markAsRead');

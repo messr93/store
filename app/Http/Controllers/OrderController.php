@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Cart;
 use App\Category;
 use App\Coupon;
+use App\Notifications\ItemBuyed;
 use App\Order;
 use App\OrderProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
@@ -66,20 +68,21 @@ class OrderController extends Controller
                 'qty' => $item->qty,
                 'price' => $item->price,
             ]);
+            Notification::send($item->product->user, new ItemBuyed($item->product, $user->id));    // send notification to vendor that some user wanna buy his item.
             $item->delete();                // remove items from cart
         }
 
         if($data['payment_method'] == 'cash_on_delivery'){    /// cash on delivery, go monitor your order DONE
 
-            return view('frontend.order.index')->with('success', 'Your order recorded');
+            return redirect()->route('profile.myOrders')->with('success', 'Your order recorded');
         }else{
             session()->put('unpaid_order_id', $order->id);
             $checkoutId = "";
             $checkoutId =  $this->getCheckoutId($total);          // id form payment gateway, going to js
 
             if(!$checkoutId)
-                return view('frontend.order.index')->with('error', 'Something wrong with payment, pls try here again');    // in case, payment gateway never return token
-            return view('frontend.pages.payment', ['checkoutId' => $checkoutId]);       // go next page prove payment
+                return redirect()->route('profile.myOrders')->with('error', 'Something wrong with payment, pls try here again');    // in case, payment gateway never return token
+            return view('frontend.pages.payment', ['checkoutId' => $checkoutId]);    // go next page prove payment
         }
     }
 
@@ -94,9 +97,9 @@ class OrderController extends Controller
             if(session('unpaid_order_id')){
                 Order::where('id', session()->pull('unpaid_order_id'))->update(['paid' => 1, 'payment_id' => $status['id'], 'status' => 'processing']);
             }
-            return view('frontend.order.index')->with('success', 'Your order recorded');      //order done go monitor it
+            return redirect()->route('profile.myOrders')->with('success', 'Your order recorded');      //order done go monitor it
         }else{
-            return view('frontend.order.index')->with('error', 'Something wrong with payment, pls try here again');    // in case, payment gateway never return token
+            return redirect()->route('profile.myOrders')->with('error', 'Something wrong with payment, pls try here again');    // in case, payment gateway never return token
         }
     }
 

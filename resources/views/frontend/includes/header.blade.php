@@ -36,13 +36,27 @@
                         @else
                             <div class="dropdown d-inline-block">
                                 <a href="#" style="position: relative; margin-right: 20px; color:black" class="dropdown-toggle" data-toggle="dropdown">
-                                     <i class="fa fa-bell" style="font-size: larger"></i>
-                                    <i class="badge badge-pill badge-danger" style="position: absolute; right:10px; top: 2px; font-size: 9px">5</i>
+                                    <i class="fa fa-bell" style="font-size: larger"></i>
+                                    @if(auth()->user()->unreadNotifications->count() > 0)
+                                        <i class="badge badge-pill badge-danger notify_count" style="position: absolute; right:10px; top: 2px; font-size: 9px">
+                                            {{ auth()->user()->unreadNotifications->count() }}
+                                        </i>
+                                    @endif
                                  </a>
                                 <div class="dropdown-menu dropdown-menu-right mt-3" id="notify_menu">
-                                    <a class="dropdown-item" href="#">Link 1</a>
-                                    <a class="dropdown-item" href="#">Link 2</a>
-                                    <a class="dropdown-item" href="#">Link 3</a>
+                                    @foreach(auth()->user()->notifications()->orderBy('created_at', 'desc')->get() as $notification)
+                                        @if(is_null($notification->read_at))
+                                            <a class="dropdown-item notify_link" href="{{ $notification->data['url'] }}" id="{{ $notification->id }}">
+                                                <strong class="notify_unread">{{ $notification->data['message'] }}</strong>
+                                                <span style="margin-left: 5px; font-size: small">{{ $notification->created_at->diffForHumans() }}</span>
+                                            </a>
+                                        @else
+                                            <a class="dropdown-item notify_link" href="{{ $notification->data['url'] }}" id="{{ $notification->id }}">
+                                                <span style="font-weight: 100">{{ $notification->data['message'] }}</span>
+                                                <span style="margin-left: 5px; font-size: small">{{ $notification->created_at->diffForHumans() }}</span>
+                                            </a>
+                                        @endif
+                                    @endforeach
                                 </div>
                             </div>
 
@@ -108,3 +122,34 @@
     </div>
 </header>
 <!-- Header Section End -->
+
+@push('js')
+    <script>
+        $(document).ready(function(){
+
+            //////////////////////////////////////////// mark notification as read ////////////////////////////////////////
+            $(document).on('click', '.notify_link', function(){
+
+                if($(this).find('strong.notify_unread').length > 0){        // if notification not marked yet as read
+
+                    var id = $(this).attr('id');
+                    $.ajax({
+                        url: "{{ route('notification.markAsRead') }}",
+                        method: "post",
+                        data: {
+                            "_token":  "{{ csrf_token() }}",
+                            "id": id,
+                        },
+                        success: function(data){
+                            console.log(data.message);
+                        },
+                        error: function(err){
+                            console.log(err);
+                        }
+                    });
+                }
+            });
+
+        });
+    </script>
+@endpush

@@ -12,6 +12,7 @@ Trait  HandleImages{
         Image::make($photo)->resize(1200, 700)->save(base_path('uploads/product/cover/1200x700/'.$photoName));
         Image::make($photo)->resize(255, 255)->save(base_path('uploads/product/cover/255x255/'.$photoName));
         Image::make($photo)->resize(110, 110)->save(base_path('uploads/product/cover/110x110/'.$photoName));
+        //Image::make($photo)->resize(131, 26)->save(base_path('uploads/product/cover/custom/'.$photoName));
     }
 
     function deleteCoverImage($photoName){

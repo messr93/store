@@ -34,7 +34,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hero__item set-bg" data-setbg="{{asset('frontend')}}/img/comp_1.jpg">
+                    <div class="hero__item set-bg" data-setbg="{{asset('frontend')}}/img/macentosh.jpg">
                         <div class="hero__text">
                             <span >POWERFUL SERVERS</span>
                             <h2 class="text-primary">10GEN processor <br />24 RAM</h2>
@@ -50,6 +50,7 @@
     <!-- sale_off Section Begin -->
     <section class="sale_off">
         <div class="container">
+            <div class="section-title"><h2 class="mx-auto my-5">- Sale Off -</h2></div>
             <div class="row">
                 <div class="product__discount__slider owl-carousel">
                     @foreach($saleProducts as $product)
@@ -57,7 +58,7 @@
                             <a href="{{ route('product.show', $product->slug) }}">
                                 <div class="product__discount__item">
                                     <div class="product__discount__item__pic set-bg"
-                                         data-setbg="{{ url('uploads/product/cover/255x255/'.$product->photo) }}">
+                                         data-setbg="{{ url('uploads/product/cover/1200x700/'.$product->photo) }}">
                                         <div class="product__discount__percent">-{{ $product->discount }}%</div>
                                     </div>
                                     <div class="product__discount__item__text">
@@ -81,7 +82,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h2>Featured Product</h2>
+                        <h2>{{ __('front.Featured products') }}</h2>
                     </div>
                     <div class="featured__controls">
                         <ul>

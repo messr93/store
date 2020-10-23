@@ -37664,15 +37664,24 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "ul",
-    { attrs: { id: "categ_ul" } },
+    { staticStyle: { padding: "0px" }, attrs: { id: "categ_ul list-group" } },
     _vm._l(_vm.categories, function(category) {
-      return _c("li", [
-        _c(
-          "a",
-          { attrs: { href: "search/products?category=" + category.slug } },
-          [_vm._v(_vm._s(category.name))]
-        )
-      ])
+      return _c(
+        "li",
+        {
+          staticClass: "list-group-item font-weight-bold text-center bg-light"
+        },
+        [
+          _c(
+            "a",
+            {
+              staticClass: "text-primary",
+              attrs: { href: "search/products?category=" + category.slug }
+            },
+            [_vm._v(_vm._s(category.name))]
+          )
+        ]
+      )
     }),
     0
   )

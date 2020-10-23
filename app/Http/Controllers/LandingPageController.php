@@ -12,7 +12,7 @@ class LandingPageController extends Controller
 
     public function index()
     {
-
+        app()->setLocale('en');
 
         $saleProducts = Product::orderBy('discount', 'desc')->limit(10)->get();                                 // 10 products ordered by sale %
         $categories = Category::topCategories();     // 11 categories sort by products count

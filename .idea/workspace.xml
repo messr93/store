@@ -2,62 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6e550eb4-c7ef-4afa-a358-9b90f543d0c3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.phpintel/8036a16dc19e60b181fc9ce3be15c419" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/NotificationController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Jobs/TestJob.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Notification.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Notifications/ItemBuyed.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_10_21_154514_create_notifications_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_10_22_092530_create_jobs_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/frontend/img/macentosh.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/ar/front.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/en/front.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/110x110/product_cover_1603226405.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/110x110/product_cover_1603307427.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/110x110/product_cover_1603372266.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/110x110/product_cover_1603372355.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/110x110/product_cover_1603372381.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/110x110/product_cover_1603372455.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/110x110/product_cover_1603388364.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/1200x700/product_cover_1603226405.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/1200x700/product_cover_1603307427.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/1200x700/product_cover_1603372266.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/1200x700/product_cover_1603372355.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/1200x700/product_cover_1603372381.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/1200x700/product_cover_1603372455.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/1200x700/product_cover_1603388364.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/255x255/product_cover_1603226405.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/255x255/product_cover_1603307427.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/255x255/product_cover_1603372266.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/255x255/product_cover_1603372355.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/255x255/product_cover_1603372381.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/255x255/product_cover_1603372455.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/255x255/product_cover_1603388364.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/cover/custom/product_cover_1603388364.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/related/600x600/product_related_01603226406.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/related/600x600/product_related_01603307427.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/related/600x600/product_related_11603226406.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/related/600x600/product_related_11603307427.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/related/600x600/product_related_21603226407.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/related/600x600/product_related_21603307427.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/product/related/600x600/product_related_31603307427.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.phpintel/d0e954589fa67a028093b628180b606e" beforeDir="false" afterPath="$PROJECT_DIR$/.phpintel/d0e954589fa67a028093b628180b606e" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.phpintel/index" beforeDir="false" afterPath="$PROJECT_DIR$/.phpintel/index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/City.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/City.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/LandingPageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/LandingPageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/HandleImages.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/HandleImages.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/queue.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/queue.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/store.sql" beforeDir="false" afterPath="$PROJECT_DIR$/db/store.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/frontend/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/frontend/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/CategoriesList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/CategoriesList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/includes/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/includes/header.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/pages/checkout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/pages/checkout.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/frontend/product/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/frontend/product/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/landing-page.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing-page.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -195,18 +140,18 @@
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/lang/ar" />
-      <recent name="$PROJECT_DIR$/resources/lang/en" />
-      <recent name="$PROJECT_DIR$/resources/views/frontend/profile" />
-      <recent name="$PROJECT_DIR$/resources/views/frontend/product" />
-      <recent name="$PROJECT_DIR$/resources/views/layouts" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/uploads/product/cover" />
       <recent name="$PROJECT_DIR$/resources/views/frontend/order" />
       <recent name="C:\xampp\htdocs\store\database\migrations" />
       <recent name="C:\xampp\htdocs\store\resources\views" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/db" />
+      <recent name="$PROJECT_DIR$/resources/lang/ar" />
+      <recent name="$PROJECT_DIR$/resources/lang/en" />
+      <recent name="$PROJECT_DIR$/resources/views/frontend/profile" />
+      <recent name="$PROJECT_DIR$/resources/views/frontend/product" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -269,7 +214,7 @@
       <workItem from="1603357981685" duration="7125000" />
       <workItem from="1603368606325" duration="5000" />
       <workItem from="1603401318428" duration="6690000" />
-      <workItem from="1603482266558" duration="310000" />
+      <workItem from="1603482266558" duration="1300000" />
     </task>
     <servers />
   </component>

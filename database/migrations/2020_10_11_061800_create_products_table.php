@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('category');
             $table->string('name')->unique();
             $table->string('slug')->unique();
+            $table->tinyInteger('status')->default(1);
             $table->string('photo')->default('default_img.jpg');
             $table->string('details')->nullable();
             $table->integer('price');

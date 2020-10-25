@@ -33,19 +33,23 @@
                         </div>
                         <div class="product__details__price">${{ $product->finalPrice() }}</div>
                         <p>{{ $product->description }}.</p>
-                        @if($inCart)
+                        @if($inCart)                    {{--item already in your cart--}}
                             <h3 class="text-success"> This item in your cart </h3>
                         @else
-                            <form action="{{ route('cart.store', ['product_id' => $product->id]) }}" method="post" class="d-inline-block"> @csrf
-                                <div class="product__details__quantity">
-                                    <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" name="qty" value="1">
+                            @if(auth()->check() && $product->user_id == auth()->user()->id)         {{--you are the owner go edit not buy--}}
+                                <a href="{{ route('product.edit', $product->slug) }}" class="primary-btn border-0">Edit</a>
+                            @else
+                                <form action="{{ route('cart.store', ['product_id' => $product->id]) }}" method="post" class="d-inline-block"> @csrf
+                                    <div class="product__details__quantity">
+                                        <div class="quantity">
+                                            <div class="pro-qty">
+                                                <input type="text" name="qty" value="1">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <button type="submit" class="primary-btn border-0">ADD TO CARD</button>
-                            </form>
+                                    <button type="submit" class="primary-btn border-0">ADD TO CARD</button>
+                                </form>
+                                @endif
                         @endif
                         <ul>
                             <li><b>Availability</b> <span>In Stock</span></li>

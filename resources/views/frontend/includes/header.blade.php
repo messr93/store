@@ -36,7 +36,7 @@
                         @else
                             <div class="dropdown d-inline-block">
                                 <a href="#" style="position: relative; margin-right: 20px; color:black" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-bell" style="font-size: larger"></i>
+                                    <i class="fa fa-bell" style="font-size: larger; color:#7fad39"></i>
                                     @if(auth()->user()->unreadNotifications->count() > 0)
                                         <i class="badge badge-pill badge-danger notify_count" style="position: absolute; right:10px; top: 2px; font-size: 9px">
                                             {{ auth()->user()->unreadNotifications->count() }}

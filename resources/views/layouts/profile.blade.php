@@ -93,7 +93,7 @@
 @include('frontend.includes.header')
 <div class="p-5" id="app">
     @include('frontend.includes.search-bar')
-    <h2 class="text-center"> {{ $pageTitle? : 'Empty title' }}</h2>
+    <h2 class="text-center"> {{ !empty($pageTitle)? $pageTitle: 'Empty title' }}</h2>
     @include('frontend.includes.flash-messages')
     <div class="row my-3">
         <div class="col-2">

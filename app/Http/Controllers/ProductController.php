@@ -116,7 +116,7 @@ class ProductController extends Controller
 
             $this->uploadProductCoverImage($photo, $photoName);         // upload new cover photo
             $data['photo'] = $photoName;
-            $this->deleteCoverImage($product->photo);   // delete old cover photo
+            $this->deleteProductCoverImage($product);   // delete old cover photo
         }
 
         $product->update($data);
@@ -206,13 +206,14 @@ class ProductController extends Controller
             'category' => 'required',
             'price' => 'required|numeric',
             'description' => 'required|string',
+            'photo' => 'image|dimensions:min_width=1200,min_height=700',
         ];
         if($request->name !== $product->name)
             $rules['name'] = 'required|string|unique:products,name';
         if($request->filled('discount'))            // if had discount
             $rules['discount'] = 'numeric';
-        if($request->hasFile('photo'))              // if updated cover photo
-            $rules['photo'] ='required|image|dimensions:min_width=1200,min_height=700';
+        /*if($request->hasFile('photo'))              // if updated cover photo
+            $rules['photo'] ='image|dimensions:min_width=1200,min_height=700';*/
         if($request->hasFile('related_photo')){                                 // if any related photos added
             for($i = 0; $i < count($request->file('related_photo')); $i++){
                 $rules['related_photo.'.$i] = 'image|dimensions:min_width=600,min_height=600';

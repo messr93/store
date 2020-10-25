@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 23, 2020 at 10:49 PM
+-- Generation Time: Oct 25, 2020 at 03:12 AM
 -- Server version: 8.0.21-0ubuntu0.20.04.4
 -- PHP Version: 7.4.3
 
@@ -49,6 +49,7 @@ CREATE TABLE `categories` (
   `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint NOT NULL DEFAULT '1',
   `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default_img.jpg',
   `parent` int NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -59,13 +60,14 @@ CREATE TABLE `categories` (
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `slug`, `photo`, `parent`, `created_at`, `updated_at`) VALUES
-(1, 'laptop', 'laptop', 'default_img.jpg', 0, NULL, NULL),
-(2, 'pc', 'pc', 'default_img.jpg', 0, NULL, NULL),
-(3, 'mobile', 'mobile', 'default_img.jpg', 0, NULL, NULL),
-(4, 'tablet', 'tablet', 'default_img.jpg', 0, NULL, NULL),
-(5, 'computer accessories', 'computer-accessories', 'default_img.jpg', 0, NULL, NULL),
-(6, 'mobile accessories', 'mobile-accessories', 'default_img.jpg', 0, NULL, NULL);
+INSERT INTO `categories` (`id`, `name`, `slug`, `status`, `photo`, `parent`, `created_at`, `updated_at`) VALUES
+(1, 'laptop', 'laptop', 1, 'category_1603579796.jpg', 0, NULL, '2020-10-24 20:49:56'),
+(2, 'pc', 'pc', 1, 'category_1603579839.jpg', 0, NULL, '2020-10-24 20:50:39'),
+(3, 'mobile', 'mobile', 1, 'default_img.jpg', 0, NULL, '2020-10-24 20:51:12'),
+(4, 'tablet', 'tablet', 1, 'default_img.jpg', 0, NULL, NULL),
+(5, 'computer accessories', 'computer-accessories', 1, 'default_img.jpg', 0, NULL, NULL),
+(6, 'mobile accessories', 'mobile-accessories', 1, 'default_img.jpg', 0, NULL, NULL),
+(14, 'test1', 'test1', 0, 'category_1603579670.jpg', 0, '2020-10-24 19:56:19', '2020-10-24 20:47:51');
 
 -- --------------------------------------------------------
 
@@ -123,6 +125,7 @@ CREATE TABLE `coupons` (
   `code` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` enum('fixed_value','percent') COLLATE utf8mb4_unicode_ci NOT NULL,
   `value` int NOT NULL,
+  `status` tinyint NOT NULL DEFAULT '1',
   `consumed` tinyint NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -132,9 +135,9 @@ CREATE TABLE `coupons` (
 -- Dumping data for table `coupons`
 --
 
-INSERT INTO `coupons` (`id`, `code`, `type`, `value`, `consumed`, `created_at`, `updated_at`) VALUES
-(1, 'ABC12345', 'percent', 10, 0, NULL, '2020-10-20 18:50:42'),
-(2, 'DEF6789', 'fixed_value', 500, 1, NULL, '2020-10-21 12:30:56');
+INSERT INTO `coupons` (`id`, `code`, `type`, `value`, `status`, `consumed`, `created_at`, `updated_at`) VALUES
+(1, 'ABC12345', 'percent', 10, 1, 0, NULL, '2020-10-20 18:50:42'),
+(2, 'DEF6789', 'fixed_value', 500, 1, 1, NULL, '2020-10-21 12:30:56');
 
 -- --------------------------------------------------------
 
@@ -177,6 +180,32 @@ CREATE TABLE `jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `langs`
+--
+
+CREATE TABLE `langs` (
+  `id` bigint UNSIGNED NOT NULL,
+  `code` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `langs`
+--
+
+INSERT INTO `langs` (`id`, `code`, `name`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'en', 'English', 1, NULL, NULL),
+(2, 'ar', 'Arabic', 1, NULL, NULL),
+(3, 'fr', 'French', 1, NULL, NULL),
+(4, 'es', 'Spanish', 1, NULL, NULL),
+(5, 'uk', 'Ukranian', 1, '2020-10-24 22:54:50', '2020-10-24 23:04:42');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -204,7 +233,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (16, '2020_10_16_062202_create_coupons_table', 4),
 (17, '2020_10_19_085108_create_product_photos_table', 5),
 (18, '2020_10_21_154514_create_notifications_table', 6),
-(19, '2020_10_22_092530_create_jobs_table', 7);
+(19, '2020_10_22_092530_create_jobs_table', 7),
+(20, '2020_10_24_233454_create_langs_table', 8);
 
 -- --------------------------------------------------------
 
@@ -263,7 +293,7 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
-('512fd064-51aa-4f8b-bd92-b39c7352ab04', 'App\\Notifications\\ItemBuyed', 'App\\User', 11, '{\"url\":\"http:\\/\\/localhost\\/store\\/product\\/redmi\",\"message\":\"Customer 3o3o wanna buy your product\"}', NULL, '2020-10-22 19:21:29', '2020-10-22 21:06:18');
+('512fd064-51aa-4f8b-bd92-b39c7352ab04', 'App\\Notifications\\ItemBuyed', 'App\\User', 11, '{\"url\":\"http:\\/\\/localhost\\/store\\/product\\/redmi\",\"message\":\"Customer 3o3o wanna buy your product\"}', '2020-10-24 12:15:39', '2020-10-22 19:21:29', '2020-10-24 12:15:39');
 
 -- --------------------------------------------------------
 
@@ -408,6 +438,7 @@ CREATE TABLE `products` (
   `category` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint NOT NULL DEFAULT '1',
   `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default_img.jpg',
   `details` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price` int NOT NULL,
@@ -422,52 +453,53 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `user_id`, `category`, `name`, `slug`, `photo`, `details`, `price`, `discount`, `rating`, `description`, `created_at`, `updated_at`) VALUES
-(1, 11, 'computer-accessories', 'Corporis architecto dolore', 'Corporis-architecto-dolore', 'default_img.jpg', NULL, 3454, 13, 2, 'Fugiat voluptate dignissimos similique et porro impedit molestiae. Natus vel aut in. Eum et beatae placeat quia.', '2020-10-12 21:43:59', '2020-10-12 21:48:25'),
-(2, 11, 'mobile-accessories', 'Corporis assumend', 'Corporis-assumend', 'default_img.jpg', NULL, 1848, 22, 1, 'Voluptatem omnis qui corrupti maxime sapiente. Corrupti architecto enim impedit veniam non.', '2020-10-12 21:44:00', '2020-10-12 21:48:25'),
-(5, 11, 'laptop', 'Voluptate incidun', 'Voluptate-incidun', 'default_img.jpg', NULL, 3711, 32, 0, 'Rerum architecto rerum maiores et in. Laboriosam quis nemo rerum quod aut voluptatem quam nostrum. Dolor consequatur voluptas facere qui consequatur ea et error.', '2020-10-12 21:44:00', '2020-10-12 21:48:25'),
-(6, 7, 'computer-accessories', 'Quos offici', 'Quos-offici', 'default_img.jpg', NULL, 1636, 12, 4, 'Id quaerat exercitationem vel alias quia eos. Qui harum temporibus quo numquam minus placeat. Occaecati nulla aperiam aliquam deserunt voluptatibus quas aut. Sit architecto tenetur eaque sunt consequuntur.', '2020-10-12 21:44:00', '2020-10-12 21:48:25'),
-(8, 3, 'computer-accessories', 'Dolores nobis eu', 'Dolores-nobis-eu', 'default_img.jpg', NULL, 1939, 22, 5, 'Laborum corrupti quam voluptatum qui nostrum. Minus perferendis occaecati quisquam sequi.', '2020-10-12 21:44:00', '2020-10-12 21:48:25'),
-(10, 7, 'mobile-accessories', 'Ex illu', 'Ex-illu', 'default_img.jpg', NULL, 4746, 13, 4, 'Debitis non reiciendis placeat odit consequatur animi. Laborum numquam molestiae rem qui dignissimos doloremque necessitatibus. Dignissimos sed tempore sit beatae eius.', '2020-10-12 21:44:00', '2020-10-12 21:48:25'),
-(11, 7, 'laptop', 'Et occaecat', 'Et-occaecat', 'default_img.jpg', NULL, 3933, 24, 5, 'Culpa ex nihil corrupti dicta vel minima aut. Corporis nam modi deserunt deleniti delectus aut officiis. Odit velit et eum blanditiis. Est ex eligendi reiciendis aut excepturi.', '2020-10-12 21:44:00', '2020-10-12 21:48:25'),
-(13, 2, 'tablet', 'Officiis et itaqu', 'Officiis-et-itaqu', 'default_img.jpg', NULL, 2316, 15, 0, 'Natus qui et quaerat occaecati iure et. Et iusto nostrum aliquam incidunt. Explicabo mollitia veritatis animi deserunt ipsam. Alias quia qui accusamus reprehenderit voluptate reprehenderit magni.', '2020-10-12 21:44:00', '2020-10-12 21:48:25'),
-(14, 1, 'tablet', 'Magni ipsu', 'Magni-ipsu', 'default_img.jpg', NULL, 1593, 10, 3, 'Non quisquam ab neque fugiat sed reprehenderit. Non alias qui hic. Facilis pariatur veritatis delectus voluptas. Voluptatem libero incidunt impedit sit adipisci.', '2020-10-12 21:44:00', '2020-10-12 21:48:26'),
-(15, 4, 'mobile', 'Tempora liber', 'Tempora-liber', 'default_img.jpg', NULL, 587, 6, 4, 'Voluptatibus reiciendis consectetur aut vel asperiores nulla optio. Sed debitis rem amet quos. Reprehenderit sunt nam rerum voluptatem laborum maiores dicta. Voluptate expedita occaecati consectetur rerum error quia non.', '2020-10-12 21:44:00', '2020-10-12 21:48:26'),
-(17, 11, 'laptop', 'Atque sit null', 'Atque-sit-null', 'default_img.jpg', NULL, 1993, 32, 2, 'Porro sint quis voluptatem tempora qui occaecati impedit dignissimos. Aut neque doloribus totam rem quasi ut. Minima omnis esse quasi excepturi iure.', '2020-10-12 21:44:00', '2020-10-12 21:48:26'),
-(19, 7, 'tablet', 'Est dolore', 'Est-dolore', 'default_img.jpg', NULL, 4258, 7, 1, 'Nihil molestiae vel dolor necessitatibus eum repellat. Totam voluptates optio voluptate inventore quibusdam cumque. Omnis accusamus laudantium eligendi velit. Atque nostrum excepturi tenetur consectetur voluptas aspernatur.', '2020-10-12 21:44:00', '2020-10-12 21:48:26'),
-(20, 3, 'pc', 'Quasi minima nequ', 'Quasi-minima-nequ', 'default_img.jpg', NULL, 1284, 24, 4, 'Magni tempore voluptatibus rerum sed enim odit autem. Vel iure quod sed porro facere. Nihil neque dolorem at. Dolorem sunt quisquam ullam consequatur porro quia suscipit pariatur.', '2020-10-12 21:44:00', '2020-10-12 21:48:26'),
-(21, 7, 'computer-accessories', 'Autem eum', 'Autem-eum', 'default_img.jpg', NULL, 3133, 22, 4, 'Recusandae excepturi voluptas tempora error amet totam. Maxime saepe harum et non. Nihil quibusdam qui veritatis reprehenderit alias. Quia sunt vitae qui.', '2020-10-12 21:44:00', '2020-10-12 21:48:26'),
-(25, 7, 'mobile', 'Veritatis eos tenetur', 'Veritatis-eos-tenetur', 'default_img.jpg', NULL, 873, 23, 4, 'Sit sequi eius laudantium ipsam natus. Explicabo inventore nobis est nulla et et.', '2020-10-12 21:44:01', '2020-10-12 21:48:26'),
-(27, 2, 'mobile', 'Cum molestiae', 'Cum-molestiae', 'default_img.jpg', NULL, 2741, 6, 4, 'Nobis natus perferendis error dolores occaecati. Velit placeat consequuntur minus enim. Reiciendis sit perferendis quidem aspernatur.', '2020-10-12 21:44:01', '2020-10-12 21:48:27'),
-(28, 3, 'computer-accessories', 'Voluptatem ut iure', 'Voluptatem-ut-iure', 'default_img.jpg', NULL, 2594, 14, 0, 'A soluta ipsa qui pariatur aperiam laboriosam dolores. Corporis et et et praesentium odit repudiandae perspiciatis.', '2020-10-12 21:44:01', '2020-10-12 21:48:27'),
-(29, 4, 'tablet', 'Dolorum ipsa veniam', 'Dolorum-ipsa-veniam', 'default_img.jpg', NULL, 3836, 6, 3, 'Voluptatem culpa eos voluptatem quod. Molestiae quae officia assumenda dolor. Natus voluptatem ullam voluptas fugiat atque. Sit veniam eum dicta voluptatibus voluptatem veniam. Iure omnis dolorem qui.', '2020-10-12 21:44:01', '2020-10-12 21:48:27'),
-(30, 9, 'mobile-accessories', 'Quaerat et cupiditate', 'Quaerat-et-cupiditate', 'default_img.jpg', NULL, 2508, 29, 5, 'Ratione incidunt est sed cupiditate fugiat qui. Quis voluptate corporis fuga qui consequatur. Laborum ut debitis aut magni. Porro excepturi omnis sint in.', '2020-10-12 21:44:01', '2020-10-12 21:48:27'),
-(31, 4, 'mobile', 'Et rerum in', 'Et-rerum-in', 'default_img.jpg', NULL, 2637, 9, 5, 'Voluptatum dicta temporibus consectetur totam cum. Omnis quia quia quas consequatur unde eaque. Id et nisi repellat cum dignissimos tempore. Aut porro eius similique et recusandae.', '2020-10-12 21:44:01', '2020-10-12 21:48:27'),
-(32, 11, 'laptop', 'Culpa temporibus inventore', 'Culpa-temporibus-inventore', 'default_img.jpg', NULL, 1356, 25, 4, 'Ab architecto saepe enim dolor architecto et. Voluptatem eos sed temporibus itaque reprehenderit. Vel nesciunt est culpa nam voluptas at atque. Et rerum pariatur soluta ab.', '2020-10-12 21:44:01', '2020-10-12 21:48:27'),
-(33, 9, 'tablet', 'Praesentium modi', 'Praesentium-modi', 'default_img.jpg', NULL, 4182, 5, 1, 'Quis velit necessitatibus soluta quo omnis voluptates maiores quos. Voluptates sed quia nisi perferendis eos similique. Ipsam recusandae et ratione cum aspernatur. Quaerat at aspernatur est accusamus voluptatem voluptatem atque.', '2020-10-12 21:44:01', '2020-10-12 21:48:27'),
-(34, 3, 'computer-accessories', 'Rerum voluptate iste', 'Rerum-voluptate-iste', 'default_img.jpg', NULL, 4597, 5, 2, 'Laboriosam aut consectetur expedita eveniet. Qui ea minus voluptatibus et laboriosam repellat et. Reiciendis in sed qui ea eum sunt. Sunt eius quis iure et optio sit.', '2020-10-12 21:44:01', '2020-10-12 21:48:27'),
-(36, 7, 'pc', 'Culpa dolore', 'Culpa-dolore', 'default_img.jpg', NULL, 1776, 18, 3, 'Natus eligendi non corrupti quia. Inventore commodi sint omnis ut. Dicta aut animi voluptas dolores.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
-(38, 3, 'computer-accessories', 'Sit eos', 'Sit-eos', 'default_img.jpg', NULL, 3621, 22, 4, 'Est et quia ratione aut ullam. Veritatis velit aut cupiditate molestiae repellat voluptatibus. Dolores iste dolores ut minus porro autem consequatur. Minus repellendus veritatis et et vel.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
-(39, 10, 'tablet', 'Temporibus non in', 'Temporibus-non-in', 'default_img.jpg', NULL, 4405, 15, 4, 'Amet beatae voluptatem sit eos. Qui porro voluptatum unde impedit. Officia sed et ipsum.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
-(40, 3, 'tablet', 'Sit voluptas molestiae', 'Sit-voluptas-molestiae', 'default_img.jpg', NULL, 352, 8, 2, 'Vel ut quaerat earum quo. At eos corrupti aut repudiandae iure. Et suscipit alias optio qui atque assumenda beatae. Sint reiciendis blanditiis ex consequatur pariatur. Aut quasi mollitia fuga veritatis in ut autem.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
-(41, 3, 'computer-accessories', 'Sunt voluptas qui', 'Sunt-voluptas-qui', 'default_img.jpg', NULL, 2813, 20, 5, 'Dolor optio veniam repudiandae velit. Occaecati eaque ab aut facilis harum. Est esse aliquid et voluptatum fugiat nobis.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
-(42, 9, 'mobile-accessories', 'Veritatis a occaecati', 'Veritatis-a-occaecati', 'default_img.jpg', NULL, 3148, 6, 0, 'Qui quaerat quaerat ullam quisquam laboriosam. Reiciendis enim delectus eum. Animi est odio dignissimos modi ipsum amet asperiores. Itaque voluptas facilis omnis.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
-(43, 2, 'mobile', 'Sed et sequi', 'Sed-et-sequi', 'default_img.jpg', NULL, 223, 9, 4, 'Nobis a consequatur dolores et. Id qui odit beatae qui eveniet quod magni.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
-(44, 10, 'mobile-accessories', 'Inventore eligendi sequi', 'Inventore-eligendi-sequi', 'default_img.jpg', NULL, 3829, 25, 0, 'Nemo ipsa culpa qui sit culpa consequatur molestiae. Ad eum et et delectus fugit error ratione. Sunt sint sint beatae blanditiis accusamus.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
-(45, 1, 'pc', 'Tempore tenetur', 'Tempore-tenetur', 'default_img.jpg', NULL, 1429, 27, 5, 'Culpa iure sint quisquam pariatur molestiae quam. Maiores deleniti enim qui consequatur quo repellendus laborum. Placeat optio ea ex omnis neque. A ab ipsa debitis recusandae quo. Aut ratione molestias recusandae et.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
-(48, 9, 'tablet', 'Quidem rem dolor', 'Quidem-rem-dolor', 'default_img.jpg', NULL, 3642, 17, 1, 'Soluta occaecati magni debitis minima autem et neque. Corrupti suscipit est placeat molestias quia reiciendis. Dolorem minus officiis et nam nemo. Ea laboriosam consequatur voluptas odit velit repellat vel. Soluta repellat maxime sunt quia voluptatem quod.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
-(49, 10, 'computer-accessories', 'Repellat animi enim', 'Repellat-animi-enim', 'default_img.jpg', NULL, 4871, 34, 2, 'Perferendis id numquam architecto officia. Sint quis iste tenetur. Qui aut similique sapiente quo esse esse sit. Eos nesciunt aspernatur temporibus et nemo sit.', '2020-10-12 21:44:02', '2020-10-12 21:48:28'),
-(52, 11, 'pc', 'Hope Daniel', 'Hope-Daniel', 'product_cover_1603103750_.jpg', 'Est quibusdam rem qu', 968, 50, 0, 'Tempora duis in non', '2020-10-19 07:31:27', NULL),
-(54, 11, 'laptop', 'mac', 'mac', 'product_cover_1603104777_.jpg', 'Est dolore id liber', 436, 97, 0, 'Cillum deserunt cons', NULL, NULL),
-(55, 11, 'laptop', 'Bertha Maynard', 'Bertha-Maynard', 'product_cover_1603104834_.jpg', 'Sint veniam dolores', 917, 67, 0, 'Rerum provident et', NULL, NULL),
-(58, 11, 'laptop', 'sfsfdd', 'sfsfdd', 'product_related_1603109983.jpg', 'Quis iure dolores ma', 328, NULL, 0, 'Sit est possimus u', '2020-10-19 10:19:43', '2020-10-19 14:56:40'),
-(59, 11, 'pc', 'lenovo ideapad', 'lenovo-ideapad', 'product_cover_1603226405.jpg', 'trutri6r', 9000, 90, 0, 'ykyrfkykryrkyr', '2020-10-20 18:40:05', NULL),
-(60, 11, 'mobile', 'redmi', 'redmi', 'product_cover_1603307427.jpg', 'frgherger', 10000, 99, 0, 'redmi redmiredmiredmiredmiredmiredmiredmiredmiredmiredmi', '2020-10-21 17:10:27', NULL),
-(61, 11, 'laptop', 'Tanek Moran', 'Tanek-Moran', 'product_cover_1603372266.jpg', 'Amet aut est natus', 234, 3, 0, 'Beatae voluptate com', '2020-10-22 11:11:06', NULL),
-(62, 11, 'mobile', 'Norman Montgomery', 'Norman-Montgomery', 'product_cover_1603372355.jpg', 'Quibusdam beatae mol', 607, 57, 0, 'Omnis rerum voluptat', '2020-10-22 11:12:35', NULL),
-(63, 11, 'computer-accessories', 'Isabella Snyder', 'Isabella-Snyder', 'product_cover_1603372381.jpg', 'Omnis non id rem in', 620, 58, 0, 'Qui tempora sunt mai', '2020-10-22 11:13:01', NULL),
-(64, 11, 'pc', 'Carl Underwood', 'Carl-Underwood', 'product_cover_1603372455.jpg', 'Est modi blanditiis', 664, 75, 0, 'Corrupti irure ut s', '2020-10-22 11:14:15', NULL),
-(65, 11, 'laptop', 'Zeph Mcintosh', 'Zeph-Mcintosh', 'product_cover_1603388364.png', 'Voluptatem Blanditi', 550, 65, 0, 'Quod sit aut quo ut', '2020-10-22 15:39:24', NULL);
+INSERT INTO `products` (`id`, `user_id`, `category`, `name`, `slug`, `status`, `photo`, `details`, `price`, `discount`, `rating`, `description`, `created_at`, `updated_at`) VALUES
+(1, 11, 'computer-accessories', 'Corporis architecto dolore', 'Corporis-architecto-dolore', 1, 'default_img.jpg', NULL, 3454, 13, 2, 'Fugiat voluptate dignissimos similique et porro impedit molestiae. Natus vel aut in. Eum et beatae placeat quia.', '2020-10-12 21:43:59', '2020-10-12 21:48:25'),
+(2, 11, 'mobile-accessories', 'Corporis assumend', 'Corporis-assumend', 1, 'default_img.jpg', NULL, 1848, 22, 1, 'Voluptatem omnis qui corrupti maxime sapiente. Corrupti architecto enim impedit veniam non.', '2020-10-12 21:44:00', '2020-10-12 21:48:25'),
+(5, 11, 'laptop', 'Voluptate incidun', 'Voluptate-incidun', 1, 'default_img.jpg', NULL, 3711, 32, 0, 'Rerum architecto rerum maiores et in. Laboriosam quis nemo rerum quod aut voluptatem quam nostrum. Dolor consequatur voluptas facere qui consequatur ea et error.', '2020-10-12 21:44:00', '2020-10-12 21:48:25'),
+(6, 7, 'computer-accessories', 'Quos offici', 'Quos-offici', 1, 'default_img.jpg', NULL, 1636, 12, 4, 'Id quaerat exercitationem vel alias quia eos. Qui harum temporibus quo numquam minus placeat. Occaecati nulla aperiam aliquam deserunt voluptatibus quas aut. Sit architecto tenetur eaque sunt consequuntur.', '2020-10-12 21:44:00', '2020-10-12 21:48:25'),
+(8, 3, 'computer-accessories', 'Dolores nobis eu', 'Dolores-nobis-eu', 1, 'default_img.jpg', NULL, 1939, 22, 5, 'Laborum corrupti quam voluptatum qui nostrum. Minus perferendis occaecati quisquam sequi.', '2020-10-12 21:44:00', '2020-10-12 21:48:25'),
+(10, 7, 'mobile-accessories', 'Ex illu', 'Ex-illu', 1, 'default_img.jpg', NULL, 4746, 13, 4, 'Debitis non reiciendis placeat odit consequatur animi. Laborum numquam molestiae rem qui dignissimos doloremque necessitatibus. Dignissimos sed tempore sit beatae eius.', '2020-10-12 21:44:00', '2020-10-12 21:48:25'),
+(11, 7, 'laptop', 'Et occaecat', 'Et-occaecat', 1, 'default_img.jpg', NULL, 3933, 24, 5, 'Culpa ex nihil corrupti dicta vel minima aut. Corporis nam modi deserunt deleniti delectus aut officiis. Odit velit et eum blanditiis. Est ex eligendi reiciendis aut excepturi.', '2020-10-12 21:44:00', '2020-10-12 21:48:25'),
+(13, 2, 'tablet', 'Officiis et itaqu', 'Officiis-et-itaqu', 1, 'default_img.jpg', NULL, 2316, 15, 0, 'Natus qui et quaerat occaecati iure et. Et iusto nostrum aliquam incidunt. Explicabo mollitia veritatis animi deserunt ipsam. Alias quia qui accusamus reprehenderit voluptate reprehenderit magni.', '2020-10-12 21:44:00', '2020-10-12 21:48:25'),
+(14, 1, 'tablet', 'Magni ipsu', 'Magni-ipsu', 1, 'default_img.jpg', NULL, 1593, 10, 3, 'Non quisquam ab neque fugiat sed reprehenderit. Non alias qui hic. Facilis pariatur veritatis delectus voluptas. Voluptatem libero incidunt impedit sit adipisci.', '2020-10-12 21:44:00', '2020-10-12 21:48:26'),
+(15, 4, 'mobile', 'Tempora liber', 'Tempora-liber', 1, 'default_img.jpg', NULL, 587, 6, 4, 'Voluptatibus reiciendis consectetur aut vel asperiores nulla optio. Sed debitis rem amet quos. Reprehenderit sunt nam rerum voluptatem laborum maiores dicta. Voluptate expedita occaecati consectetur rerum error quia non.', '2020-10-12 21:44:00', '2020-10-12 21:48:26'),
+(17, 11, 'laptop', 'Atque sit null', 'Atque-sit-null', 1, 'default_img.jpg', NULL, 1993, 32, 2, 'Porro sint quis voluptatem tempora qui occaecati impedit dignissimos. Aut neque doloribus totam rem quasi ut. Minima omnis esse quasi excepturi iure.', '2020-10-12 21:44:00', '2020-10-12 21:48:26'),
+(19, 7, 'tablet', 'Est dolore', 'Est-dolore', 1, 'default_img.jpg', NULL, 4258, 7, 1, 'Nihil molestiae vel dolor necessitatibus eum repellat. Totam voluptates optio voluptate inventore quibusdam cumque. Omnis accusamus laudantium eligendi velit. Atque nostrum excepturi tenetur consectetur voluptas aspernatur.', '2020-10-12 21:44:00', '2020-10-12 21:48:26'),
+(20, 3, 'pc', 'Quasi minima nequ', 'Quasi-minima-nequ', 1, 'default_img.jpg', NULL, 1284, 24, 4, 'Magni tempore voluptatibus rerum sed enim odit autem. Vel iure quod sed porro facere. Nihil neque dolorem at. Dolorem sunt quisquam ullam consequatur porro quia suscipit pariatur.', '2020-10-12 21:44:00', '2020-10-12 21:48:26'),
+(21, 7, 'computer-accessories', 'Autem eum', 'Autem-eum', 1, 'default_img.jpg', NULL, 3133, 22, 4, 'Recusandae excepturi voluptas tempora error amet totam. Maxime saepe harum et non. Nihil quibusdam qui veritatis reprehenderit alias. Quia sunt vitae qui.', '2020-10-12 21:44:00', '2020-10-12 21:48:26'),
+(25, 7, 'mobile', 'Veritatis eos tenetur', 'Veritatis-eos-tenetur', 1, 'default_img.jpg', NULL, 873, 23, 4, 'Sit sequi eius laudantium ipsam natus. Explicabo inventore nobis est nulla et et.', '2020-10-12 21:44:01', '2020-10-12 21:48:26'),
+(27, 2, 'mobile', 'Cum molestiae', 'Cum-molestiae', 1, 'default_img.jpg', NULL, 2741, 6, 4, 'Nobis natus perferendis error dolores occaecati. Velit placeat consequuntur minus enim. Reiciendis sit perferendis quidem aspernatur.', '2020-10-12 21:44:01', '2020-10-12 21:48:27'),
+(28, 3, 'computer-accessories', 'Voluptatem ut iure', 'Voluptatem-ut-iure', 1, 'default_img.jpg', NULL, 2594, 14, 0, 'A soluta ipsa qui pariatur aperiam laboriosam dolores. Corporis et et et praesentium odit repudiandae perspiciatis.', '2020-10-12 21:44:01', '2020-10-12 21:48:27'),
+(29, 4, 'tablet', 'Dolorum ipsa veniam', 'Dolorum-ipsa-veniam', 1, 'default_img.jpg', NULL, 3836, 6, 3, 'Voluptatem culpa eos voluptatem quod. Molestiae quae officia assumenda dolor. Natus voluptatem ullam voluptas fugiat atque. Sit veniam eum dicta voluptatibus voluptatem veniam. Iure omnis dolorem qui.', '2020-10-12 21:44:01', '2020-10-12 21:48:27'),
+(30, 9, 'mobile-accessories', 'Quaerat et cupiditate', 'Quaerat-et-cupiditate', 1, 'default_img.jpg', NULL, 2508, 29, 5, 'Ratione incidunt est sed cupiditate fugiat qui. Quis voluptate corporis fuga qui consequatur. Laborum ut debitis aut magni. Porro excepturi omnis sint in.', '2020-10-12 21:44:01', '2020-10-12 21:48:27'),
+(31, 4, 'mobile', 'Et rerum in', 'Et-rerum-in', 1, 'default_img.jpg', NULL, 2637, 9, 5, 'Voluptatum dicta temporibus consectetur totam cum. Omnis quia quia quas consequatur unde eaque. Id et nisi repellat cum dignissimos tempore. Aut porro eius similique et recusandae.', '2020-10-12 21:44:01', '2020-10-12 21:48:27'),
+(32, 11, 'laptop', 'Culpa temporibus inventore', 'Culpa-temporibus-inventore', 1, 'default_img.jpg', NULL, 1356, 25, 4, 'Ab architecto saepe enim dolor architecto et. Voluptatem eos sed temporibus itaque reprehenderit. Vel nesciunt est culpa nam voluptas at atque. Et rerum pariatur soluta ab.', '2020-10-12 21:44:01', '2020-10-12 21:48:27'),
+(33, 9, 'tablet', 'Praesentium modi', 'Praesentium-modi', 1, 'default_img.jpg', NULL, 4182, 5, 1, 'Quis velit necessitatibus soluta quo omnis voluptates maiores quos. Voluptates sed quia nisi perferendis eos similique. Ipsam recusandae et ratione cum aspernatur. Quaerat at aspernatur est accusamus voluptatem voluptatem atque.', '2020-10-12 21:44:01', '2020-10-12 21:48:27'),
+(34, 3, 'computer-accessories', 'Rerum voluptate iste', 'Rerum-voluptate-iste', 1, 'default_img.jpg', NULL, 4597, 5, 2, 'Laboriosam aut consectetur expedita eveniet. Qui ea minus voluptatibus et laboriosam repellat et. Reiciendis in sed qui ea eum sunt. Sunt eius quis iure et optio sit.', '2020-10-12 21:44:01', '2020-10-12 21:48:27'),
+(36, 7, 'pc', 'Culpa dolore', 'Culpa-dolore', 1, 'default_img.jpg', NULL, 1776, 18, 3, 'Natus eligendi non corrupti quia. Inventore commodi sint omnis ut. Dicta aut animi voluptas dolores.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
+(38, 3, 'computer-accessories', 'Sit eos', 'Sit-eos', 1, 'default_img.jpg', NULL, 3621, 22, 4, 'Est et quia ratione aut ullam. Veritatis velit aut cupiditate molestiae repellat voluptatibus. Dolores iste dolores ut minus porro autem consequatur. Minus repellendus veritatis et et vel.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
+(39, 10, 'tablet', 'Temporibus non in', 'Temporibus-non-in', 1, 'default_img.jpg', NULL, 4405, 15, 4, 'Amet beatae voluptatem sit eos. Qui porro voluptatum unde impedit. Officia sed et ipsum.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
+(40, 3, 'tablet', 'Sit voluptas molestiae', 'Sit-voluptas-molestiae', 1, 'default_img.jpg', NULL, 352, 8, 2, 'Vel ut quaerat earum quo. At eos corrupti aut repudiandae iure. Et suscipit alias optio qui atque assumenda beatae. Sint reiciendis blanditiis ex consequatur pariatur. Aut quasi mollitia fuga veritatis in ut autem.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
+(41, 3, 'computer-accessories', 'Sunt voluptas qui', 'Sunt-voluptas-qui', 1, 'default_img.jpg', NULL, 2813, 20, 5, 'Dolor optio veniam repudiandae velit. Occaecati eaque ab aut facilis harum. Est esse aliquid et voluptatum fugiat nobis.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
+(42, 9, 'mobile-accessories', 'Veritatis a occaecati', 'Veritatis-a-occaecati', 1, 'default_img.jpg', NULL, 3148, 6, 0, 'Qui quaerat quaerat ullam quisquam laboriosam. Reiciendis enim delectus eum. Animi est odio dignissimos modi ipsum amet asperiores. Itaque voluptas facilis omnis.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
+(43, 2, 'mobile', 'Sed et sequi', 'Sed-et-sequi', 1, 'default_img.jpg', NULL, 223, 9, 4, 'Nobis a consequatur dolores et. Id qui odit beatae qui eveniet quod magni.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
+(44, 10, 'mobile-accessories', 'Inventore eligendi sequi', 'Inventore-eligendi-sequi', 1, 'default_img.jpg', NULL, 3829, 25, 0, 'Nemo ipsa culpa qui sit culpa consequatur molestiae. Ad eum et et delectus fugit error ratione. Sunt sint sint beatae blanditiis accusamus.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
+(45, 1, 'pc', 'Tempore tenetur', 'Tempore-tenetur', 1, 'default_img.jpg', NULL, 1429, 27, 5, 'Culpa iure sint quisquam pariatur molestiae quam. Maiores deleniti enim qui consequatur quo repellendus laborum. Placeat optio ea ex omnis neque. A ab ipsa debitis recusandae quo. Aut ratione molestias recusandae et.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
+(48, 9, 'tablet', 'Quidem rem dolor', 'Quidem-rem-dolor', 1, 'default_img.jpg', NULL, 3642, 17, 1, 'Soluta occaecati magni debitis minima autem et neque. Corrupti suscipit est placeat molestias quia reiciendis. Dolorem minus officiis et nam nemo. Ea laboriosam consequatur voluptas odit velit repellat vel. Soluta repellat maxime sunt quia voluptatem quod.', '2020-10-12 21:44:01', '2020-10-12 21:48:28'),
+(49, 10, 'computer-accessories', 'Repellat animi enim', 'Repellat-animi-enim', 1, 'default_img.jpg', NULL, 4871, 34, 2, 'Perferendis id numquam architecto officia. Sint quis iste tenetur. Qui aut similique sapiente quo esse esse sit. Eos nesciunt aspernatur temporibus et nemo sit.', '2020-10-12 21:44:02', '2020-10-12 21:48:28'),
+(52, 11, 'pc', 'Hope Daniel', 'Hope-Daniel', 1, 'product_cover_1603103750_.jpg', 'Est quibusdam rem qu', 968, 50, 0, 'Tempora duis in non', '2020-10-19 07:31:27', NULL),
+(54, 11, 'laptop', 'mac', 'mac', 1, 'product_cover_1603104777_.jpg', 'Est dolore id liber', 436, 97, 0, 'Cillum deserunt cons', NULL, NULL),
+(55, 11, 'laptop', 'Bertha Maynard', 'Bertha-Maynard', 1, 'product_cover_1603104834_.jpg', 'Sint veniam dolores', 917, 67, 0, 'Rerum provident et', NULL, NULL),
+(58, 11, 'laptop', 'sfsfdd', 'sfsfdd', 1, 'product_related_1603109983.jpg', 'Quis iure dolores ma', 328, NULL, 0, 'Sit est possimus u', '2020-10-19 10:19:43', '2020-10-19 14:56:40'),
+(59, 11, 'pc', 'lenovo ideapad', 'lenovo-ideapad', 1, 'product_cover_1603226405.jpg', 'trutri6r', 9000, 90, 0, 'ykyrfkykryrkyr', '2020-10-20 18:40:05', NULL),
+(60, 11, 'mobile', 'redmi', 'redmi', 1, 'product_cover_1603307427.jpg', 'frgherger', 10000, 99, 0, 'redmi redmiredmiredmiredmiredmiredmiredmiredmiredmiredmi', '2020-10-21 17:10:27', NULL),
+(61, 11, 'laptop', 'Tanek Moran', 'Tanek-Moran', 1, 'product_cover_1603372266.jpg', 'Amet aut est natus', 234, 3, 0, 'Beatae voluptate com', '2020-10-22 11:11:06', NULL),
+(62, 11, 'mobile', 'Norman Montgomery', 'Norman-Montgomery', 1, 'product_cover_1603372355.jpg', 'Quibusdam beatae mol', 607, 57, 0, 'Omnis rerum voluptat', '2020-10-22 11:12:35', NULL),
+(63, 11, 'computer-accessories', 'Isabella Snyder', 'Isabella-Snyder', 1, 'product_cover_1603372381.jpg', 'Omnis non id rem in', 620, 58, 0, 'Qui tempora sunt mai', '2020-10-22 11:13:01', NULL),
+(64, 11, 'pc', 'Carl Underwood', 'Carl-Underwood', 1, 'product_cover_1603372455.jpg', 'Est modi blanditiis', 664, 75, 0, 'Corrupti irure ut s', '2020-10-22 11:14:15', NULL),
+(65, 11, 'laptop', 'Zeph Mcintosh', 'Zeph-Mcintosh', 1, 'product_cover_1603388364.png', 'Voluptatem Blanditi', 550, 65, 0, 'Quod sit aut quo ut', '2020-10-22 15:39:24', NULL),
+(66, 11, 'mobile', 'Brittany Gregory', 'Brittany-Gregory', 1, 'product_cover_1603567057.jpg', 'Temporibus voluptate', 625, 36, 0, 'Sed esse deserunt e', '2020-10-24 17:17:37', NULL);
 
 -- --------------------------------------------------------
 
@@ -1030,6 +1062,7 @@ CREATE TABLE `users` (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `gender` enum('male','female') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint NOT NULL DEFAULT '1',
   `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default_img.jpg',
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1042,16 +1075,16 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `gender`, `email`, `photo`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Dr. Agustin Boyle', 'male', 'agustin44@example.net', 'default_img.jpg', '2020-10-12 21:42:23', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '4BXfXMgsqr', '2020-10-12 21:42:23', '2020-10-12 21:42:23'),
-(2, 'Birdie Boyer', 'male', 'constantin.mclaughlin@example.org', 'default_img.jpg', '2020-10-12 21:42:23', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'tR2yISFULo', '2020-10-12 21:42:23', '2020-10-12 21:42:23'),
-(3, 'Willa Moen', 'male', 'kiel.schinner@example.com', 'default_img.jpg', '2020-10-12 21:42:23', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'JWWFg2WTZx', '2020-10-12 21:42:24', '2020-10-12 21:42:24'),
-(4, 'Laurine Maggio', 'male', 'hosea85@example.com', 'default_img.jpg', '2020-10-12 21:42:23', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '8ZGQssbZmU', '2020-10-12 21:42:24', '2020-10-12 21:42:24'),
-(7, 'Esta Johns', 'male', 'yryan@example.org', 'default_img.jpg', '2020-10-12 21:42:23', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'zWXlqav5Q9', '2020-10-12 21:42:24', '2020-10-12 21:42:24'),
-(9, 'Miss Brooke Weimann', 'male', 'adrienne.abshire@example.net', 'default_img.jpg', '2020-10-12 21:42:23', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '26D5USQ8kW', '2020-10-12 21:42:24', '2020-10-12 21:42:24'),
-(10, 'Ms. Ivory Leannon', 'male', 'lorena00@example.com', 'default_img.jpg', '2020-10-12 21:42:23', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'ItfcfGs7ON', '2020-10-12 21:42:24', '2020-10-12 21:42:24'),
-(11, 'Mohamed Ashraf', 'male', 'messr93@gmail.com', 'default_img.jpg', NULL, '$2y$10$K9CJ14yJlXWg.qgWg3m3Re41QkHTg9GMr2Ij14Y.eLB3KYP18.sre', 'eu2iFoZHemU8vfF1hzWhmnPvsOHBKI6oXpohEzCdXriUiVGo2qYKEDltNYCi', '2020-10-13 02:50:57', '2020-10-17 09:50:59'),
-(12, '3o3o', 'male', '3o3@3o3o.com', 'default_img.jpg', NULL, '$2y$10$8ZFJlyQsnKTQQq5hbqqIwepto65SzEk6DZZybJm75ofPRBULgziea', 'OnE4uj4YzHYlRFZ7A5H2WqhrBSGB0m3T722phV4tVZVGI2A16A4Ec8rS6Oof', '2020-10-17 13:32:42', '2020-10-17 13:36:29');
+INSERT INTO `users` (`id`, `name`, `gender`, `email`, `status`, `photo`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Dr. Agustin Boyle', 'male', 'agustin44@example.net', 1, 'default_img.jpg', '2020-10-12 21:42:23', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '4BXfXMgsqr', '2020-10-12 21:42:23', '2020-10-12 21:42:23'),
+(2, 'Birdie Boyer', 'male', 'constantin.mclaughlin@example.org', 1, 'default_img.jpg', '2020-10-12 21:42:23', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'tR2yISFULo', '2020-10-12 21:42:23', '2020-10-12 21:42:23'),
+(3, 'Willa Moen', 'male', 'kiel.schinner@example.com', 1, 'default_img.jpg', '2020-10-12 21:42:23', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'JWWFg2WTZx', '2020-10-12 21:42:24', '2020-10-12 21:42:24'),
+(4, 'Laurine Maggio', 'male', 'hosea85@example.com', 1, 'default_img.jpg', '2020-10-12 21:42:23', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '8ZGQssbZmU', '2020-10-12 21:42:24', '2020-10-12 21:42:24'),
+(7, 'Esta Johns', 'male', 'yryan@example.org', 1, 'default_img.jpg', '2020-10-12 21:42:23', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'zWXlqav5Q9', '2020-10-12 21:42:24', '2020-10-12 21:42:24'),
+(9, 'Miss Brooke Weimann', 'male', 'adrienne.abshire@example.net', 1, 'default_img.jpg', '2020-10-12 21:42:23', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '26D5USQ8kW', '2020-10-12 21:42:24', '2020-10-12 21:42:24'),
+(10, 'Ms. Ivory Leannon', 'male', 'lorena00@example.com', 1, 'default_img.jpg', '2020-10-12 21:42:23', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'ItfcfGs7ON', '2020-10-12 21:42:24', '2020-10-12 21:42:24'),
+(11, 'Mohamed Ashraff', 'male', 'messr93@gmail.com', 1, 'user_profile_1603548561.jpg', NULL, '$2y$10$K9CJ14yJlXWg.qgWg3m3Re41QkHTg9GMr2Ij14Y.eLB3KYP18.sre', 'sbi0vK4KOsn50XXL9qsXnPQdtzqxLfGp6hTgJCHWEKBF3Eq3blAByzxWZ3CS', '2020-10-13 02:50:57', '2020-10-24 12:09:21'),
+(12, '3o3o', 'male', '3o3@3o3o.com', 1, 'default_img.jpg', NULL, '$2y$10$8ZFJlyQsnKTQQq5hbqqIwepto65SzEk6DZZybJm75ofPRBULgziea', 'jQrfNWdwTRr2EiflE4KfeevpYMjzMPGMuBVxf9Qy9M6Fpf5ns9olQt3GdoPo', '2020-10-17 13:32:42', '2020-10-17 13:36:29');
 
 --
 -- Indexes for dumped tables
@@ -1097,6 +1130,12 @@ ALTER TABLE `failed_jobs`
 ALTER TABLE `jobs`
   ADD PRIMARY KEY (`id`),
   ADD KEY `jobs_queue_index` (`queue`);
+
+--
+-- Indexes for table `langs`
+--
+ALTER TABLE `langs`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `migrations`
@@ -1218,7 +1257,7 @@ ALTER TABLE `carts`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `cities`
@@ -1245,10 +1284,16 @@ ALTER TABLE `jobs`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT for table `langs`
+--
+ALTER TABLE `langs`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -1272,7 +1317,7 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `product_photos`

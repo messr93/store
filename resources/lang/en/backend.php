@@ -1,0 +1,50 @@
+<?php
+
+return [
+
+    'Users' => 'Users',
+    'All users' => 'All users',
+    'Add user' => 'add User',
+
+    'Categories' => 'Categories',
+    'All categories' => 'All categories',
+    'Add category' => 'Add category',
+    'Edit category' => 'Edit category',
+    'Category deletion' => 'Category deletion',
+    'Category name' => 'Category name',
+    'Category photo' => 'Select category photo min (1200x700)',
+    'Category created' => 'New category added successfully',
+    'Category updated' => 'Category updated successfully',
+    'Parent Category' => 'Parent Category',
+    'None' => '-- none --',
+    'Sure you wanna delete' => 'Sure you wanna delete',
+
+    'Products' => 'Products',
+    'All products' => 'All products',
+    'Add product' => 'Add product',
+
+    'Photo' => 'Photo',
+    'Name' => 'Name',
+    'Status' => 'Status',
+    'Parent' => 'Parent',
+    'Actions' => 'Actions',
+    'Edit' => 'Edit',
+    'Activate' => 'Activate',
+    'DisActivate' => 'DisActivate',
+    'Active' => 'Active',
+    'unActive' => 'unActive',
+    'Delete' => 'Delete',
+    'Insert' => 'Insert',
+    'Update' => 'Update',
+
+    'Code' => 'Code',
+    'Lang code' => 'Lang code',
+    'Langs' => 'Languages',
+    'All langs' => 'All languages',
+    'Add lang' => 'Add language',
+    'Edit lang' => 'Edit language',
+    'Lang deletion' => 'Language deletion',
+    'Lang name' => 'Language name',
+    'Lang created' => 'New language added successfully',
+    'Lang updated' => 'Language updated successfully',
+];

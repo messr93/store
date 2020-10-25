@@ -46,7 +46,7 @@
             @enderror
         </div>
         <div class="form-group">
-            <label for="photo"><strong>Select cover photo (1200x700):</strong></label>
+            <label for="photo"><strong>Select cover photo min (1200x700):</strong></label>
             <input type="file" class="form-control-file border @error('photo') is-invalid @enderror" id="photo" name="photo">
             @error('photo')
                 <span class="text-danger">{{ $message }}</span>
@@ -55,7 +55,7 @@
         <div id="photo_gallery"></div>
 
         <div class="form-group">
-            <label for="related_photo"><strong>Select related photos (600x600):</strong></label>
+            <label for="related_photo"><strong>Select related  min (600x600):</strong></label>
             <input type="file" class="form-control-file border @error('related_photo.*') is-invalid @enderror" id="related_photo" name="related_photo[]" multiple>
             @error('related_photo.*')
                 <span class="text-danger">{{ $message }}</span>

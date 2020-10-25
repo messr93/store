@@ -18,6 +18,7 @@ class CreateCouponsTable extends Migration
             $table->text('code');
             $table->enum('type', ['fixed_value', 'percent']);
             $table->integer('value');
+            $table->tinyInteger('status')->default(1);
             $table->tinyInteger('consumed')->default(0);
             $table->timestamps();
         });

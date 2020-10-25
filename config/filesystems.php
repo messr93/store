@@ -51,6 +51,14 @@ return [
             'driver' => 'local',
             'root' => base_path('uploads/product'),
         ],
+        'category' => [
+            'driver' => 'local',
+            'root' => base_path('uploads/category'),
+        ],
+        'user' => [
+            'driver' => 'local',
+            'root' => base_path('uploads/user'),
+        ],
 
         'public' => [
             'driver' => 'local',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Product;
+use App\Slider;
 use Illuminate\Http\Request;
 use stdClass;
 
@@ -12,6 +13,7 @@ class LandingPageController extends Controller
 
     public function index()
     {
+
         app()->setLocale('en');
 
         $saleProducts = Product::orderBy('discount', 'desc')->limit(10)->get();                                 // 10 products ordered by sale %
@@ -21,8 +23,10 @@ class LandingPageController extends Controller
             ->inRandomOrder()->limit(8)->get();     // 8 random
         $latestProducts = Product::orderBy('created_at', 'desc')->limit(12)->get()->chunk(3);
         $topRatedProducts = Product::orderBy('rating', 'desc')->limit(12)->get()->chunk(3);
+        $firstSlider = Slider::first();
         return view('landing-page', ['featuredProducts' => $featuredProducts, 'topRatedProducts' => $topRatedProducts,
-            'saleProducts' => $saleProducts, 'latestProducts' => $latestProducts, 'categories' => $categories]);
+            'saleProducts' => $saleProducts, 'latestProducts' => $latestProducts, 'categories' => $categories,
+            'firstSlider' => $firstSlider]);
     }
 
 }
@@ -33,7 +37,7 @@ class LandingPageController extends Controller
 
 /*$products = Product::all();
 foreach($products as $product){
-    $product->slug = str_replace(' ', '-', $product->name);
+    $product->slug = slugThis($product->name);
     $product->save();
 }
 

@@ -8,12 +8,9 @@ class Category extends Model
 {
 
     protected $table = 'categories';
-    protected $fillable = ['name', 'slug', 'status', 'photo', 'parent'];
+    protected $fillable = ['name', 'slug', 'description', 'status', 'photo', 'parent'];
 
     public $timestamps = true;
-
-
-
 
 
     public function getRouteKeyName(){

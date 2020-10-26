@@ -11,18 +11,19 @@ use Yajra\DataTables\DataTables;
 class CategoryController extends Controller
 {
     use HandleImages;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function __construct(){
+        changeLang('ar');
+
+    }
+
     public function index()
     {
         return view('backend.category.index', ['pageTitle' => __('backend.All categories')] );
     }
 
     public function allData(){
-        //app()->setLocale('en');
+
         $categories = Category::all();
         return DataTables::of($categories)
             ->addColumn('actions', 'backend.category.actions')
@@ -50,11 +51,12 @@ class CategoryController extends Controller
 
         $data = $request->validate([
            'name' => 'required|string',
+           'description' => 'required|string',
            'status' => 'required|integer|min:0|max:1',
            'parent' => 'required|integer',
            'photo' => 'required|image|dimensions:min_width=1200,min_height=700',
         ]);
-        $data['slug'] = str_replace(' ', '-', $request->input('name'));
+        $data['slug'] = slugThis($request->input('name'));
         if($request->hasFile('photo')){
             $photo = $request->file('photo');
             $photoName = 'category_'.time().'.'.$photo->getClientOriginalExtension();
@@ -100,12 +102,13 @@ class CategoryController extends Controller
 
         $data = $request->validate([
             'name' => 'required|string',
+            'description' => 'required|string',
             'status' => 'required|integer|min:0|max:1',
             'parent' => 'required|integer',
             'photo' => 'image|dimensions:min_width=1200,min_height=700',
         ]);
 
-        $data['slug'] = str_replace(' ', '-', $request->input('name'));
+        $data['slug'] = slugThis($request->input('name'));
         if($request->hasFile('photo')){
             $photo = $request->file('photo');
             $photoName = 'category_'.time().'.'.$photo->getClientOriginalExtension();

@@ -11,6 +11,11 @@ use Yajra\DataTables\DataTables;
 class LangController extends Controller
 {
 
+    public function __construct(){
+        changeLang('ar');
+
+    }
+
     public function index()
     {
         return view('backend.lang.index', ['pageTitle' => __('backend.All langs')] );

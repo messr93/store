@@ -4,7 +4,7 @@
     <a href="{{asset('backend')}}/index3.html" class="brand-link">
         <img src="{{asset('backend')}}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">{{ __('backend.dashboard') }}</span>
     </a>
 
     <!-- Sidebar -->
@@ -97,7 +97,7 @@
                 </li>
 
                 <li class="nav-item has-treeview menu-open">
-                    <a href="#" class="nav-link active" style="background-color: #7061a5">
+                    <a href="{{ route('admin.product.index') }}" class="nav-link active" style="background-color: #7061a5">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             {{ __('backend.Products') }}
@@ -106,20 +106,44 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{--active--}}">
+                            <a href="{{ route('admin.product.index') }}" class="nav-link {{--active--}}">
                                 <i class="far fa-list-alt nav-icon"></i>
                                 <p>{{ __('backend.All products') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link ">
+                            <a href="{{ route('admin.product.create') }}" class="nav-link ">
                                 <i class="fa fa-plus nav-icon"></i>
                                 <p>{{ __('backend.Add product') }}</p>
                             </a>
                         </li>
                     </ul>
-
                 </li>
+
+                <li class="nav-item has-treeview menu-open">
+                    <a href="{{ route('admin.slider.index') }}" class="nav-link active" style="background-color: #a5972e">
+                        <i class="nav-icon fas fa-sliders"></i>
+                        <p>
+                            {{ __('backend.Sliders') }}
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.slider.index') }}" class="nav-link {{--active--}}">
+                                <i class="far fa-list-alt nav-icon"></i>
+                                <p>{{ __('backend.All sliders') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.slider.create') }}" class="nav-link ">
+                                <i class="fa fa-plus nav-icon"></i>
+                                <p>{{ __('backend.Add slider') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="nav-item">
                     <a href="{{asset('backend')}}/pages/widgets.html" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>

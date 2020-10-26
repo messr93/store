@@ -3,6 +3,7 @@ namespace App\Traits;
 
 use App\Category;
 use App\Product;
+use App\Slider;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
@@ -52,6 +53,22 @@ Trait  HandleImages{
                 Storage::disk('product')->delete('related/600x600/'.$productPhoto->photo);
                 $productPhoto->delete();
             }
+        }
+    }
+
+    ######################################################### Slider #######################################################
+    function uploadSliderImage($photo, $photoName){
+        Image::make($photo)->resize(1200, 700)->save(base_path('uploads/slider/1200x700/'.$photoName));
+        Image::make($photo)->resize(600, 350)->save(base_path('uploads/slider/600x350/'.$photoName));
+        Image::make($photo)->resize(110, 110)->save(base_path('uploads/slider/110x110/'.$photoName));
+        //Image::make($photo)->resize(600, 600)->save(base_path('uploads/category/110x110/'.$photoName));
+    }
+
+    function deleteSliderImages(Slider $slider){
+        if($slider->photo !== "default_img.jpg"){
+            Storage::disk('slider')->delete('1200x700/'.$slider->photo);
+            Storage::disk('slider')->delete('600x350/'.$slider->photo);
+            Storage::disk('slider')->delete('110x110/'.$slider->photo);
         }
     }
 

@@ -70,7 +70,6 @@ class ProductController extends Controller
 
     }
 
-
     public function show(Product $product)
     {
         $categories = Category::get()->sortByDesc(function($q){return $q->products()->count();})->take(11);     /// most 11 categories having products
@@ -186,13 +185,14 @@ class ProductController extends Controller
     protected function getCreateValidateRules($request){
         $rules = [
             'name' => 'required|string|unique:products,name',
+            'details' => 'string',
             'category' => 'required',
             'price' => 'required|numeric',
+            'discount' => 'integer',
             'photo' => 'required|image|dimensions:min_width=1200,min_height=700',
             'description' => 'required|string',
+            'status' => 'required|integer|min:0|max:1',
         ];
-        if($request->filled('discount'))                // if had discount
-            $rules['discount'] = 'numeric';
         if($request->hasFile('related_photo')){                                  // if any related photos added
             for($i = 0; $i < count($request->file('related_photo')); $i++){
                 $rules['related_photo.'.$i] = 'image|dimensions:min_width=600,min_height=600';
@@ -203,17 +203,17 @@ class ProductController extends Controller
 
     protected function getUpdateValidateRules($request, $product){
         $rules = [
+            'details' => 'string',
             'category' => 'required',
             'price' => 'required|numeric',
+            'discount' => 'integer',
             'description' => 'required|string',
+            'status' => 'required|integer|min:0|max:1',
             'photo' => 'image|dimensions:min_width=1200,min_height=700',
         ];
         if($request->name !== $product->name)
-            $rules['name'] = 'required|string|unique:products,name';
-        if($request->filled('discount'))            // if had discount
-            $rules['discount'] = 'numeric';
-        /*if($request->hasFile('photo'))              // if updated cover photo
-            $rules['photo'] ='image|dimensions:min_width=1200,min_height=700';*/
+            $rules['name'] = 'required|string|unique:products,name';            // cause it's unique
+
         if($request->hasFile('related_photo')){                                 // if any related photos added
             for($i = 0; $i < count($request->file('related_photo')); $i++){
                 $rules['related_photo.'.$i] = 'image|dimensions:min_width=600,min_height=600';

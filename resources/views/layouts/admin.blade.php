@@ -1,18 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="{{app()->getLocale() == 'ar'? 'rtl': 'ltr'}}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>AdminLTE 3 | Dashboard 2</title>
-
+    <title>Admin panel</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{asset('backend')}}/plugins/fontawesome-free/css/all.min.css">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{asset('backend')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{asset('backend')}}/dist/css/adminlte.min.css">
+
+    @if(app()->getLocale() == 'ar')
+        <!-- bootstrap rtl -->
+        <link rel="stylesheet" href="{{asset('backend')}}/dist/css/rtl/adminlte.min.css">
+        <link rel="stylesheet" href="{{asset('backend')}}/dist/css/rtl/bootstrap-rtl.min.css">
+        <!-- template rtl version -->
+        <link rel="stylesheet" href="{{asset('backend')}}/dist/css/rtl/custom-style.css">
+        
+    @else
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{{asset('backend')}}/dist/css/adminlte.min.css">
+    @endif
+
     <!-- Datatable -->
     <link rel="stylesheet" href="{{asset('vendor/datatables//css/jquery.dataTables.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/datatables//css/buttons.dataTables.min.css')}}">
@@ -36,7 +46,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">{{__('backend.Home')}}</a></li>
                             <li class="breadcrumb-item active"> {{ !empty($pageTitle)? $pageTitle :'Empty title' }}</li>
                         </ol>
                     </div><!-- /.col -->

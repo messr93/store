@@ -10,6 +10,14 @@
             @enderror
         </div>
 
+        <div class="form-group">
+            <label for="description">{{ __('backend.Description') }}:</label>
+            <input type="text" id="description" name="description" class="form-control @error('description') is-invalid @enderror" placeholder="{{ __('backend.Description') }}" value="{{ old('description') }}">
+            @error('description')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+
         <div class="form-group form-row">
             <div class="col">
                 <label for="status">{{ __('backend.Status') }}:</label>

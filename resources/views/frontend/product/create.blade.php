@@ -63,7 +63,7 @@
         </div>
         <div id="related_photo_gallery"></div>
 
-        <button class="btn btn-primary btn-block">Insert</button>
+        <button type="submit" class="btn btn-primary btn-block">Insert</button>
     </form>
 
 @endsection

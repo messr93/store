@@ -34,12 +34,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hero__item set-bg" data-setbg="{{asset('frontend')}}/img/macentosh.jpg">
+                    <div class="hero__item set-bg" data-setbg="{{ url('uploads/slider/1200x700/'.$firstSlider->photo) }}">
                         <div class="hero__text">
-                            <span >POWERFUL SERVERS</span>
-                            <h2 class="text-primary">10GEN processor <br />24 RAM</h2>
+                            <span >{{ $firstSlider->title }}</span>
+                            <h2 class="text-primary">{{ $firstSlider->description }} <br /></h2>
                             <p>Free Pickup and Delivery Available</p>
-                            <a href="#" class="primary-btn">SHOP NOW</a>
+                            <a href="#" class="primary-btn">{{__('frontend.SHOP NOW')}}</a>
                         </div>
                     </div>
                 </div>

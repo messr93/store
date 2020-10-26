@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
 
     public function index(){
-
-        return view('dashboard');
+        changeLang('ar');
+        return view('dashboard', ['pageTitle' => __('backend.dashboard')]);
     }
 }

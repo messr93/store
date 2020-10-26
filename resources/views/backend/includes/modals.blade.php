@@ -17,8 +17,8 @@
             <!-- Modal footer -->
             <div class="modal-footer">
                 <input type="hidden" id="deletion_modal_id_holder">
-                <button id="deletion_modal_sure_delete" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
-                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                <button id="deletion_modal_sure_delete" type="button" class="btn btn-danger" data-dismiss="modal">{{__('backend.Delete')}}</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">{{__('backend.Close')}}</button>
             </div>
 
         </div>
@@ -34,7 +34,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Error</h4>
+                <h4 class="modal-title">{{__('backend.Error')}}</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -45,7 +45,7 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">{{__('backend.Close')}}</button>
             </div>
 
         </div>

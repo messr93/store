@@ -71,8 +71,8 @@
                     <button id="{{ $relatedPhoto->id }}" type="button" class="close remove_related_photo" style="position: absolute; top:1px; right:10px">&times;</button>
                 </div>
             @endforeach
-
         </div>
+
         <input type="hidden" id="deleted_related_photos" name="deleted_related_photos" value="empty">       {{--Deleted related photos id here in array--}}
 
         <button class="btn btn-primary btn-block">Update</button>

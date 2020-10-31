@@ -27,9 +27,7 @@ class LangController extends Controller
 
         return DataTables::of($langs)
             ->addColumn('actions', 'backend.lang.actions')
-            ->editColumn('status', function(Lang $lang){
-                return ($lang->status == 1)? '<span class="text-success">'.__('backend.Active').'</span>': '<span class="text-warning">'.__('backend.unActive').'</span>';
-            })
+            ->editColumn('status', 'backend.includes.status')
             ->rawColumns(['status', 'actions'])
             ->make(true);
     }
@@ -92,7 +90,7 @@ class LangController extends Controller
         ]);
 
         $lang->update($data);
-        return redirect()->back()->with('success', __('backend.Lang updated'));
+        return redirect()->route('admin.lang.index')->with('success', __('backend.Lang updated'));
     }
 
     /**

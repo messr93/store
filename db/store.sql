@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 25, 2020 at 03:12 AM
+-- Generation Time: Oct 26, 2020 at 12:59 PM
 -- Server version: 8.0.21-0ubuntu0.20.04.4
 -- PHP Version: 7.4.3
 
@@ -49,6 +49,7 @@ CREATE TABLE `categories` (
   `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` tinyint NOT NULL DEFAULT '1',
   `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default_img.jpg',
   `parent` int NOT NULL DEFAULT '0',
@@ -60,14 +61,14 @@ CREATE TABLE `categories` (
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `slug`, `status`, `photo`, `parent`, `created_at`, `updated_at`) VALUES
-(1, 'laptop', 'laptop', 1, 'category_1603579796.jpg', 0, NULL, '2020-10-24 20:49:56'),
-(2, 'pc', 'pc', 1, 'category_1603579839.jpg', 0, NULL, '2020-10-24 20:50:39'),
-(3, 'mobile', 'mobile', 1, 'default_img.jpg', 0, NULL, '2020-10-24 20:51:12'),
-(4, 'tablet', 'tablet', 1, 'default_img.jpg', 0, NULL, NULL),
-(5, 'computer accessories', 'computer-accessories', 1, 'default_img.jpg', 0, NULL, NULL),
-(6, 'mobile accessories', 'mobile-accessories', 1, 'default_img.jpg', 0, NULL, NULL),
-(14, 'test1', 'test1', 0, 'category_1603579670.jpg', 0, '2020-10-24 19:56:19', '2020-10-24 20:47:51');
+INSERT INTO `categories` (`id`, `name`, `slug`, `description`, `status`, `photo`, `parent`, `created_at`, `updated_at`) VALUES
+(1, 'laptop', 'laptop', 'all laptops', 1, 'category_1603579796.jpg', 0, NULL, '2020-10-24 20:49:56'),
+(2, 'pc', 'pc', 'all pc\'s', 1, 'category_1603579839.jpg', 0, NULL, '2020-10-24 20:50:39'),
+(3, 'mobile', 'mobile', 'all mobiles', 1, 'default_img.jpg', 0, NULL, '2020-10-24 20:51:12'),
+(4, 'tablet', 'tablet', 'all tablets', 1, 'default_img.jpg', 0, NULL, NULL),
+(5, 'computer accessories', 'computer-accessories', 'all computer-accessories', 1, 'default_img.jpg', 0, NULL, NULL),
+(6, 'mobile accessories', 'mobile-accessories', 'all mobile-accessories', 1, 'default_img.jpg', 0, NULL, NULL),
+(15, 'ram', 'ram', 'ddr3 rams', 0, 'category_1603650000.jpg', 2, '2020-10-25 16:20:00', '2020-10-25 16:20:00');
 
 -- --------------------------------------------------------
 
@@ -198,10 +199,9 @@ CREATE TABLE `langs` (
 
 INSERT INTO `langs` (`id`, `code`, `name`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'en', 'English', 1, NULL, NULL),
-(2, 'ar', 'Arabic', 1, NULL, NULL),
-(3, 'fr', 'French', 1, NULL, NULL),
-(4, 'es', 'Spanish', 1, NULL, NULL),
-(5, 'uk', 'Ukranian', 1, '2020-10-24 22:54:50', '2020-10-24 23:04:42');
+(2, 'ar', 'عربي', 1, NULL, NULL),
+(3, 'fr', 'French', 0, NULL, '2020-10-25 23:18:26'),
+(4, 'es', 'Spanish', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -234,7 +234,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (17, '2020_10_19_085108_create_product_photos_table', 5),
 (18, '2020_10_21_154514_create_notifications_table', 6),
 (19, '2020_10_22_092530_create_jobs_table', 7),
-(20, '2020_10_24_233454_create_langs_table', 8);
+(20, '2020_10_24_233454_create_langs_table', 8),
+(21, '2020_10_25_201033_create_sliders_table', 9);
 
 -- --------------------------------------------------------
 
@@ -269,7 +270,8 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\User', 11),
 (2, 'App\\User', 11),
 (3, 'App\\User', 11),
-(3, 'App\\User', 12);
+(3, 'App\\User', 12),
+(3, 'App\\User', 13);
 
 -- --------------------------------------------------------
 
@@ -293,7 +295,8 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
-('512fd064-51aa-4f8b-bd92-b39c7352ab04', 'App\\Notifications\\ItemBuyed', 'App\\User', 11, '{\"url\":\"http:\\/\\/localhost\\/store\\/product\\/redmi\",\"message\":\"Customer 3o3o wanna buy your product\"}', '2020-10-24 12:15:39', '2020-10-22 19:21:29', '2020-10-24 12:15:39');
+('512fd064-51aa-4f8b-bd92-b39c7352ab04', 'App\\Notifications\\ItemBuyed', 'App\\User', 11, '{\"url\":\"http:\\/\\/localhost\\/store\\/product\\/redmi\",\"message\":\"Customer 3o3o wanna buy your product\"}', '2020-10-24 12:15:39', '2020-10-22 19:21:29', '2020-10-24 12:15:39'),
+('7461d3c2-4ca1-4930-b222-e551397ecfc4', 'App\\Notifications\\ItemBuyed', 'App\\User', 11, '{\"url\":\"http:\\/\\/localhost\\/store\\/product\\/redmi\",\"message\":\"Customer 3o3o wanna buy your product\"}', NULL, '2020-10-25 12:06:16', '2020-10-25 12:06:16');
 
 -- --------------------------------------------------------
 
@@ -352,7 +355,8 @@ INSERT INTO `orders` (`id`, `order_number`, `user_id`, `status`, `total`, `coupo
 (50, 'Order_9005f916e514eeb4', 12, 'pending', 900, 0, 1, 0, 'cash_on_delivery', NULL, 'Xanthus Christensen', 'Provident ullamco c', 'Maiores sit sunt do', 'Tempora ad dolor dis', 33610, 555, 'feko@mailinator.com', 'Fuga Sunt odit ull', '2020-10-22 09:34:41', '2020-10-22 09:34:41'),
 (51, 'Order_9005f916e6094d33', 12, 'pending', 900, 0, 1, 0, 'cash_on_delivery', NULL, 'Xanthus Christensen', 'Provident ullamco c', 'Maiores sit sunt do', 'Tempora ad dolor dis', 33610, 555, 'feko@mailinator.com', 'Fuga Sunt odit ull', '2020-10-22 09:34:56', '2020-10-22 09:34:56'),
 (52, 'Order_18005f916f6daed6a', 12, 'pending', 1800, 0, 1, 0, 'cash_on_delivery', NULL, 'Scott Byrd', 'Obcaecati maiores si', 'Quibusdam exercitati', 'Doloribus omnis ipsa', 65110, 5555, 'fyquxujupa@mailinator.com', 'Nobis aliquip invent', '2020-10-22 09:39:25', '2020-10-22 09:39:25'),
-(53, 'Order_1005f91f7b311030', 12, 'pending', 100, 0, 1, 0, 'cash_on_delivery', NULL, 'Ariel Fulton', 'Sunt vero sit simili', 'Impedit sint ad lib', 'Dignissimos molestia', 41010, 777, 'xuwula@mailinator.com', 'Nam tempora exercita', '2020-10-22 19:20:51', '2020-10-22 19:20:51');
+(53, 'Order_1005f91f7b311030', 12, 'pending', 100, 0, 1, 0, 'cash_on_delivery', NULL, 'Ariel Fulton', 'Sunt vero sit simili', 'Impedit sint ad lib', 'Dignissimos molestia', 41010, 777, 'xuwula@mailinator.com', 'Nam tempora exercita', '2020-10-22 19:20:51', '2020-10-22 19:20:51'),
+(54, 'Order_6005f958650e3d75', 12, 'pending', 600, 0, 1, 0, 'cash_on_delivery', NULL, 'Mari Miranda', 'Dignissimos aut dese', 'Voluptatum delectus', 'Consequatur fugit', 52416, 44444, 'jinyg@mailinator.com', 'Sint reiciendis sunt', '2020-10-25 12:06:09', '2020-10-25 12:06:09');
 
 -- --------------------------------------------------------
 
@@ -398,7 +402,8 @@ INSERT INTO `order_products` (`id`, `order_id`, `product_id`, `qty`, `price`, `c
 (66, 50, 59, 1, 900, '2020-10-22 09:34:41', '2020-10-22 09:34:41'),
 (67, 51, 59, 1, 900, '2020-10-22 09:34:56', '2020-10-22 09:34:56'),
 (68, 52, 59, 2, 900, '2020-10-22 09:39:25', '2020-10-22 09:39:25'),
-(69, 53, 60, 1, 100, '2020-10-22 19:20:51', '2020-10-22 19:20:51');
+(69, 53, 60, 1, 100, '2020-10-22 19:20:51', '2020-10-22 19:20:51'),
+(70, 54, 60, 6, 100, '2020-10-25 12:06:09', '2020-10-25 12:06:09');
 
 -- --------------------------------------------------------
 
@@ -499,7 +504,8 @@ INSERT INTO `products` (`id`, `user_id`, `category`, `name`, `slug`, `status`, `
 (63, 11, 'computer-accessories', 'Isabella Snyder', 'Isabella-Snyder', 1, 'product_cover_1603372381.jpg', 'Omnis non id rem in', 620, 58, 0, 'Qui tempora sunt mai', '2020-10-22 11:13:01', NULL),
 (64, 11, 'pc', 'Carl Underwood', 'Carl-Underwood', 1, 'product_cover_1603372455.jpg', 'Est modi blanditiis', 664, 75, 0, 'Corrupti irure ut s', '2020-10-22 11:14:15', NULL),
 (65, 11, 'laptop', 'Zeph Mcintosh', 'Zeph-Mcintosh', 1, 'product_cover_1603388364.png', 'Voluptatem Blanditi', 550, 65, 0, 'Quod sit aut quo ut', '2020-10-22 15:39:24', NULL),
-(66, 11, 'mobile', 'Brittany Gregory', 'Brittany-Gregory', 1, 'product_cover_1603567057.jpg', 'Temporibus voluptate', 625, 36, 0, 'Sed esse deserunt e', '2020-10-24 17:17:37', NULL);
+(66, 11, 'mobile', 'Brittany Gregory', 'Brittany-Gregory', 1, 'product_cover_1603567057.jpg', 'Temporibus voluptate', 625, 36, 0, 'Sed esse deserunt e', '2020-10-24 17:17:37', NULL),
+(67, 11, 'mobile-accessories', 'redmi note 8 case', 'redmi-note-8-case', 1, 'product_cover_1603649124.jpg', 'redmi note 8 case Blue', 3200, 30, 0, 'redmi note 8 case Blue redmi note 8 case Blue', '2020-10-25 16:05:24', '2020-10-25 17:45:20');
 
 -- --------------------------------------------------------
 
@@ -538,7 +544,9 @@ INSERT INTO `product_photos` (`id`, `product_id`, `photo`, `created_at`, `update
 (27, 60, 'product_related_01603307427.jpg', '2020-10-21 17:10:27', '2020-10-21 17:10:27'),
 (28, 60, 'product_related_11603307427.jpg', '2020-10-21 17:10:27', '2020-10-21 17:10:27'),
 (29, 60, 'product_related_21603307427.jpg', '2020-10-21 17:10:27', '2020-10-21 17:10:27'),
-(30, 60, 'product_related_31603307427.jpg', '2020-10-21 17:10:28', '2020-10-21 17:10:28');
+(30, 60, 'product_related_31603307427.jpg', '2020-10-21 17:10:28', '2020-10-21 17:10:28'),
+(32, 67, 'product_related_11603649124.jpg', '2020-10-25 16:05:24', '2020-10-25 16:05:24'),
+(33, 67, 'product_related_01603655120.jpg', '2020-10-25 17:45:20', '2020-10-25 17:45:20');
 
 -- --------------------------------------------------------
 
@@ -1054,6 +1062,30 @@ CREATE TABLE `role_has_permissions` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sliders`
+--
+
+CREATE TABLE `sliders` (
+  `id` bigint UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint NOT NULL DEFAULT '0',
+  `link` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sliders`
+--
+
+INSERT INTO `sliders` (`id`, `title`, `description`, `status`, `link`, `photo`, `created_at`, `updated_at`) VALUES
+(1, 'خصومات على جميع الموبايلا', 'خصومات تصل الى 20%', 1, 'http://localhost/store/search/products?category=mobile', 'slider_1603663686.jpg', '2020-10-25 20:08:06', '2020-10-25 20:12:07');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -1083,8 +1115,9 @@ INSERT INTO `users` (`id`, `name`, `gender`, `email`, `status`, `photo`, `email_
 (7, 'Esta Johns', 'male', 'yryan@example.org', 1, 'default_img.jpg', '2020-10-12 21:42:23', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'zWXlqav5Q9', '2020-10-12 21:42:24', '2020-10-12 21:42:24'),
 (9, 'Miss Brooke Weimann', 'male', 'adrienne.abshire@example.net', 1, 'default_img.jpg', '2020-10-12 21:42:23', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '26D5USQ8kW', '2020-10-12 21:42:24', '2020-10-12 21:42:24'),
 (10, 'Ms. Ivory Leannon', 'male', 'lorena00@example.com', 1, 'default_img.jpg', '2020-10-12 21:42:23', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'ItfcfGs7ON', '2020-10-12 21:42:24', '2020-10-12 21:42:24'),
-(11, 'Mohamed Ashraff', 'male', 'messr93@gmail.com', 1, 'user_profile_1603548561.jpg', NULL, '$2y$10$K9CJ14yJlXWg.qgWg3m3Re41QkHTg9GMr2Ij14Y.eLB3KYP18.sre', 'sbi0vK4KOsn50XXL9qsXnPQdtzqxLfGp6hTgJCHWEKBF3Eq3blAByzxWZ3CS', '2020-10-13 02:50:57', '2020-10-24 12:09:21'),
-(12, '3o3o', 'male', '3o3@3o3o.com', 1, 'default_img.jpg', NULL, '$2y$10$8ZFJlyQsnKTQQq5hbqqIwepto65SzEk6DZZybJm75ofPRBULgziea', 'jQrfNWdwTRr2EiflE4KfeevpYMjzMPGMuBVxf9Qy9M6Fpf5ns9olQt3GdoPo', '2020-10-17 13:32:42', '2020-10-17 13:36:29');
+(11, 'Mohamed Ashraf', 'male', 'messr93@gmail.com', 1, 'user_profile_1603548561.jpg', NULL, '$2y$10$K9CJ14yJlXWg.qgWg3m3Re41QkHTg9GMr2Ij14Y.eLB3KYP18.sre', 'ScBLoPGy4aRc1M3JnCe0XcwKFbyvUXrbym43WEpA9k1g68F16LttNTFVAM3P', '2020-10-13 02:50:57', '2020-10-25 00:26:42'),
+(12, '3o3o', 'male', '3o3@3o3o.com', 1, 'default_img.jpg', NULL, '$2y$10$8ZFJlyQsnKTQQq5hbqqIwepto65SzEk6DZZybJm75ofPRBULgziea', 'HlpLK1r8J0QqeEFY0RY1WCj1t0i8ECudF1h418Ik8ZNUALyT15JFQIZpyYm1', '2020-10-17 13:32:42', '2020-10-17 13:36:29'),
+(13, 'NewUser', 'male', 'new@new.com', 1, 'default_img.jpg', NULL, '$2y$10$Lo2EEWdyspjlCagsxAB7tOmzwcWN.b6M7afNivkQgdQHbMdX0p9sy', NULL, '2020-10-25 22:56:29', '2020-10-25 22:56:29');
 
 --
 -- Indexes for dumped tables
@@ -1237,6 +1270,12 @@ ALTER TABLE `role_has_permissions`
   ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
 
 --
+-- Indexes for table `sliders`
+--
+ALTER TABLE `sliders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -1251,13 +1290,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `cities`
@@ -1281,7 +1320,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `langs`
@@ -1293,19 +1332,19 @@ ALTER TABLE `langs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -1317,13 +1356,13 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `product_photos`
 --
 ALTER TABLE `product_photos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `product_reviews`
@@ -1344,10 +1383,16 @@ ALTER TABLE `roles`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `sliders`
+--
+ALTER TABLE `sliders`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables

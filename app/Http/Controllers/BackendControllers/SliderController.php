@@ -32,9 +32,7 @@ class SliderController extends Controller
         return DataTables::of($sliders)
             ->addColumn('actions', 'backend.slider.actions')
             ->editColumn('photo', '<img src="{{ url(\'uploads/slider/110x110\')}}/{{$photo}}" style="height: 75px; width: 75px" class="mx-auto d-block">')
-            ->editColumn('status', function(Slider $slider){
-                return ($slider->status == 1)? '<span class="text-success">'.__('backend.Active').'</span>': '<span class="text-danger">'.__('backend.unActive').'</span>';
-            })
+            ->editColumn('status', 'backend.includes.status')
             ->rawColumns(['photo', 'actions', 'status'])
             ->make(true);
     }
@@ -85,27 +83,39 @@ class SliderController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $slider = Slider::find($id);
+        if(is_null($slider))
+            abort(404);
+
+        return view('backend.slider.edit', ['slider' => $slider, 'pageTitle' => __('backend.Edit slider')]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $slider = Slider::find($id);
+        if(is_null($slider))
+            abort(404);
+
+        $data = $request->validate([
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'status' => 'required|integer|min:0|max:1',
+            'link' => 'required|url',
+            'photo' => 'image|dimensions:min_width=1200,min_height=700',
+        ]);
+
+        if($request->hasFile('photo')){
+            $photo = $request->file('photo');
+            $photoName = 'slider_'.time().'.'.$photo->getClientOriginalExtension();
+            $this->uploadSliderImage($photo, $photoName);
+            $data['photo'] = $photoName;
+            $this->deleteSliderImages($slider);
+        }
+
+        $slider->update($data);
+        return redirect()->route('admin.slider.index')->with('success', __('backend.Slider updated'));
     }
 
     /**
@@ -137,8 +147,8 @@ class SliderController extends Controller
         if(is_null($slider))
             return response()->json(['message' => __('backend.Slider not exists')], 404);
 
-        $this->deleteSliderImages($slider);
         $slider->delete();
+        $this->deleteSliderImages($slider);
         return response()->json(['data' => $slider], 200);
     }
 }

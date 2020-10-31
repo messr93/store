@@ -1,56 +1,50 @@
 @extends('layouts.admin')
 @section('content')
-    <form action="{{ route('admin.category.update',  $category->id) }}" method="post" enctype="multipart/form-data">@csrf @method('put')
+    <form action="{{ route('admin.slider.update',  $slider->id) }}" method="post" enctype="multipart/form-data">@csrf @method('put')
 
         <div class="form-group">
-            <label for="name">{{ __('backend.Category name') }}:</label>
-            <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="{{ __('backend.Category name') }}" value="{{ $category->name }}">
-            @error('name')
+            <label for="title">{{ __('backend.Slider title') }}:</label>
+            <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="{{ __('backend.Slider title') }}" value="{{ $slider->title }}">
+            @error('title')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
 
         <div class="form-group">
             <label for="name">{{ __('backend.Description') }}:</label>
-            <input type="text" id="description" name="description" class="form-control @error('description') is-invalid @enderror" placeholder="{{ __('backend.Description') }}" value="{{ $category->description }}">
+            <input type="text" id="description" name="description" class="form-control @error('description') is-invalid @enderror" placeholder="{{ __('backend.Description') }}" value="{{ $slider->description }}">
             @error('description')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
 
-        <div class="form-group form-row">
-            <div class="col">
-                <label for="status">{{ __('backend.Status') }}:</label>
-                <select id="status" name="status" class="form-control @error('status') is-invalid @enderror" >
-                    <option value="1" {{($category->status==1)? 'selected':''}}>{{__('backend.Active')}}</option>
-                    <option value="0" {{($category->status==0)? 'selected':''}}>{{__('backend.unActive')}}</option>
-                </select>
-                @error('status')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-            <div class="col">
-                <label for="parent">{{ __('backend.Parent Category') }}:</label>
-                <select id="parent" name="parent" class="form-control @error('parent') is-invalid @enderror">
-                    <option value="0" {{ $category->parent == 0? 'selected': '' }}>{{ __('backend.None') }}</option>
-                    @foreach($mainCategories as $mainCategory)
-                        <option value="{{ $mainCategory->id }}" {{ $category->parent == $mainCategory->id? 'selected': '' }}>{{ $mainCategory->name }}</option>
-                    @endforeach
-                </select>
-                @error('parent')
+        <div class="form-group">
+            <label for="title">{{ __('backend.Slider linklink') }}:</label>
+            <input type="text" id="link" name="link" class="form-control @error('link') is-invalid @enderror" placeholder="{{ __('backend.Slider link') }}" value="{{ $slider->link }}">
+            @error('link')
                 <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
+            @enderror
         </div>
 
         <div class="form-group">
-            <label for="photo">{{ __('backend.Category photo') }}</label>
+            <label for="status">{{ __('backend.Status') }}:</label>
+            <select id="status" name="status" class="form-control @error('status') is-invalid @enderror" >
+                <option value="1" {{($slider->status==1)? 'selected':''}}>{{__('backend.Active')}}</option>
+                <option value="0" {{($slider->status==0)? 'selected':''}}>{{__('backend.unActive')}}</option>
+            </select>
+            @error('status')
+             <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="photo">{{ __('backend.Slider photo') }}</label>
             <input type="file" id="photo" name="photo" class="form-control-file border  @error('photo') is-invalid @enderror">
             @error('photo')
             <span class="text-danger">{{ $message }}</span>
             @enderror
             <div id="photo_gallery">
-                <img src="{{ url('uploads/category/600x600/'.$category->photo) }}" style='width: 250px; height: 150px; margin: 10px'>
+                <img src="{{ url('uploads/slider/600x350/'.$slider->photo) }}" style='width: 250px; height: 150px; margin: 10px'>
             </div>
         </div>
 

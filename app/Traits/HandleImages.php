@@ -4,10 +4,24 @@ namespace App\Traits;
 use App\Category;
 use App\Product;
 use App\Slider;
+use App\User;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 Trait  HandleImages{
+
+    ######################################################### User #######################################################
+    function uploadUserImage($photo, $photoName){
+        Image::make($photo)->resize(600, 350)->save(base_path('uploads/user/600x350/'.$photoName));
+        Image::make($photo)->resize(110, 110)->save(base_path('uploads/user/110x110/'.$photoName));
+    }
+
+    function deleteUserImages(User $user){
+        if($user->photo !== "default_img.jpg"){
+            Storage::disk('user')->delete('600x350/'.$user->photo);
+            Storage::disk('user')->delete('110x110/'.$user->photo);
+        }
+    }
 
     ######################################################### Category #######################################################
     function uploadCategoryImage($photo, $photoName){

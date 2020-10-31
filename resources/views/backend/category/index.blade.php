@@ -52,7 +52,7 @@
                    url: '{!! route('admin.category.delete') !!}',
                    method: "post",
                    data: {
-                       _token: '{{ csrf_token() }}',
+                       _token: $('meta[name="csrf-token"]').attr('content'),
                        id: id,
                    },
                    success: function(data){
@@ -78,7 +78,7 @@
                     method: "post",
                     data: {
                         id: id,
-                        _token: '{{ csrf_token() }}',
+                        _token: $('meta[name="csrf-token"]').attr('content'),
                     },
                     success: function(data){
                         console.log('status changed');

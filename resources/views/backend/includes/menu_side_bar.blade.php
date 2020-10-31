@@ -1,3 +1,4 @@
+
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -12,10 +13,10 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ url('uploads/user/'.auth()->user()->photo) }}" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ url('uploads/user/110x110/'.auth()->user()->photo) }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+                <a href="#" class="d-block font-weight-bold">{{ auth()->user()->name }}</a>
             </div>
         </div>
 
@@ -25,7 +26,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <li class="nav-item has-treeview menu-open">
-                    <a href="#" class="nav-link active">
+                    <a href="{{ route('admin.user.index') }}" class="nav-link active">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             {{ __('backend.Users') }}
@@ -34,13 +35,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{--active--}}">
+                            <a href="{{ route('admin.user.index') }}" class="nav-link {{--active--}}">
                                 <i class="far fa-list-alt nav-icon"></i>
                                 <p>{{ __('backend.All users') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link ">
+                            <a href="{{ route('admin.user.create') }}" class="nav-link ">
                                 <i class="fa fa-plus nav-icon"></i>
                                 <p>{{ __('backend.Add user') }}</p>
                             </a>
@@ -122,7 +123,7 @@
 
                 <li class="nav-item has-treeview menu-open">
                     <a href="{{ route('admin.slider.index') }}" class="nav-link active" style="background-color: #a5972e">
-                        <i class="nav-icon fas fa-sliders"></i>
+                        <i class="nav-icon fas fa-sliders-h"></i>
                         <p>
                             {{ __('backend.Sliders') }}
                             <i class="right fas fa-angle-left"></i>
@@ -139,6 +140,30 @@
                             <a href="{{ route('admin.slider.create') }}" class="nav-link ">
                                 <i class="fa fa-plus nav-icon"></i>
                                 <p>{{ __('backend.Add slider') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview menu-open">
+                    <a href="{{ route('admin.appointment.index') }}" class="nav-link active" style="background-color: #369e4c">
+                        <i class="nav-icon fas fa-calendar"></i>
+                        <p>
+                            {{ __('backend.Appointments') }}
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.appointment.index') }}" class="nav-link {{--active--}}">
+                                <i class="far fa-list-alt nav-icon"></i>
+                                <p>{{ __('backend.All appointments') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.appointment.create') }}" class="nav-link ">
+                                <i class="fa fa-plus nav-icon"></i>
+                                <p>{{ __('backend.Add appointment') }}</p>
                             </a>
                         </li>
                     </ul>

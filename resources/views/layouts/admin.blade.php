@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Admin panel</title>
     <!-- Font Awesome Icons -->
@@ -17,7 +19,7 @@
         <link rel="stylesheet" href="{{asset('backend')}}/dist/css/rtl/bootstrap-rtl.min.css">
         <!-- template rtl version -->
         <link rel="stylesheet" href="{{asset('backend')}}/dist/css/rtl/custom-style.css">
-        
+
     @else
         <!-- Theme style -->
         <link rel="stylesheet" href="{{asset('backend')}}/dist/css/adminlte.min.css">

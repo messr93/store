@@ -27,10 +27,8 @@ class CategoryController extends Controller
         $categories = Category::all();
         return DataTables::of($categories)
             ->addColumn('actions', 'backend.category.actions')
-            ->editColumn('photo', '<img src="{{ url(\'uploads/category/110x110\')}}/{{$photo}}" style="height: 75px; width: 75px" class="mx-auto d-block">')
-            ->editColumn('status', function(Category $category){
-                return ($category->status == 1)? '<span class="text-success">'.__('backend.Active').'</span>': '<span class="text-warning">'.__('backend.unActive').'</span>';
-            })
+            ->editColumn('photo', '<img src="{{ url(\'uploads/category/110x110\')}}/{{$photo}}" style="height: 75px; width: 85px" class="mx-auto d-block">')
+            ->editColumn('status', 'backend.includes.status')
             ->rawColumns(['photo', 'actions', 'status'])
             ->make(true);
     }
@@ -119,7 +117,7 @@ class CategoryController extends Controller
         }
 
         $category->update($data);
-        return redirect()->back()->with('success', __('backend.Category updated'));
+        return redirect()->route('admin.category.index')->with('success', __('backend.Category updated'));
 
     }
 
@@ -154,8 +152,8 @@ class CategoryController extends Controller
         if(is_null($category))
             return response()->json(['message' => 'this category not exist !'], 404);
 
-        $this->deleteCategoryImages($category);
         $category->delete();
+        $this->deleteCategoryImages($category);
         return response()->json(['data' => $category], 200);
     }
 

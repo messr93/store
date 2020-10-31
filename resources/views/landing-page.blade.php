@@ -34,12 +34,13 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="hero__item set-bg" data-setbg="{{ url('uploads/slider/1200x700/'.$firstSlider->photo) }}">
                         <div class="hero__text">
                             <span >{{ $firstSlider->title }}</span>
-                            <h2 class="text-primary">{{ $firstSlider->description }} <br /></h2>
+                            <h2 class="text-light">{{ $firstSlider->description }} <br /></h2>
                             <p>Free Pickup and Delivery Available</p>
-                            <a href="#" class="primary-btn">{{__('frontend.SHOP NOW')}}</a>
+                            <a href="{{ $firstSlider->link }}" class="primary-btn">{{__('front.SHOP NOW')}}</a>
                         </div>
                     </div>
                 </div>

@@ -32,9 +32,7 @@ class ProductController extends Controller
         return DataTables::of($products)
             ->addColumn('actions', 'backend.product.actions')
             ->editColumn('photo', '<img src="{{ url(\'uploads/product/cover/110x110\')}}/{{$photo}}" style="height: 75px; width: 75px" class="mx-auto d-block">')
-            ->editColumn('status', function(Product $product){
-                return ($product->status == 1)? '<span class="text-success">'.__('backend.Active').'</span>': '<span class="text-warning">'.__('backend.unActive').'</span>';
-            })
+            ->editColumn('status', 'backend.includes.status')
             ->rawColumns(['photo', 'actions', 'status'])
             ->make(true);
     }
@@ -153,7 +151,7 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', __('backend.Product updated'));
+        return redirect()->route('admin.product.index')->with('success', __('backend.Product updated'));
     }
 
     /**
@@ -185,8 +183,8 @@ class ProductController extends Controller
         if(is_null($product))
             return response()->json(['message' => 'this category not exist !'], 404);
 
-        $this->deleteAllProductImages($product);
         $product->delete();
+        $this->deleteAllProductImages($product);
         return response()->json(['data' => $product], 200);
     }
 

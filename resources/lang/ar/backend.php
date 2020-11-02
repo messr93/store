@@ -12,6 +12,8 @@ return [
     'Description' => 'الوصف',
 
     'Roles' => 'الأدوار',
+    'Add role' => 'أضف دور جديد',
+    'Select new role' => 'إختر دور لإضافة',
     'Permissions' => 'التصريحات',
     'admin' => 'مدير',
     'vendor' => 'بائع',
@@ -71,7 +73,7 @@ return [
     'Product deletion' => 'حذف المنتج',
     'Product name' => 'إسم المنتج',
     'Product price' => 'سعر المنتج',
-    'Product discount' => 'التخفيض %',
+    'Product discount' => 'التخفيض ',
     'Product details' => 'تفاصيل المنتج',
     'Product photo' => 'اختر صورة المنتج الرئيسية مقاس (1200x700)',
     'Product related photos' => 'اختر صور اخرى للمنتج مقاس (600x600)',

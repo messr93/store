@@ -31,6 +31,9 @@
                             @endfor
                             <span>({{ $product->reviews->count() }} reviews)</span>
                         </div>
+                        @if($product->price > $product->finalPrice())
+                            <div class="text-muted" style="text-decoration: line-through">{{ $product->price }}</div>
+                        @endif
                         <div class="product__details__price">${{ $product->finalPrice() }}</div>
                         <p>{{ $product->description }}.</p>
                         @if($inCart)                    {{--item already in your cart--}}

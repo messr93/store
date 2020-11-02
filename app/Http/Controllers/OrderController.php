@@ -49,8 +49,8 @@ class OrderController extends Controller
             abort(404);
 
         $total = $user->cartSubTotal();
-        $total = $total-Coupon::calculateMinus($total);
         if(session()->has('coupon')){                   // if any coupon in session apply it, then remove
+            $total = $total-Coupon::calculateMinus($total);
             $data['coupon_applied'] = 1;
             session()->forget('coupon');        // delete the coupon
         }
@@ -114,24 +114,11 @@ class OrderController extends Controller
         return $order;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Order $order)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Order $order)
     {
         //

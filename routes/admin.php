@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', 'admin/dashboard');
 
-Route::get('dashboard', 'DashboardController@index');
+Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::resource('user', 'UserController');
 Route::get('all-data-user', 'UserController@allData')->name('user.allData');

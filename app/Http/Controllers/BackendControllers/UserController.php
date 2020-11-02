@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
@@ -58,14 +59,15 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('backend.user.create', ['pageTitle' => __('backend.Add user')]);
+       $roles = Role::get()->filter(function($role){ return $role->name !== "customer"; })->pluck('name')->toArray();
+        return view('backend.user.create', ['roles' => $roles, 'pageTitle' => __('backend.Add user')]);
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'gender' => 'required|string',
             'status' => 'required|integer|min:0|max:1',
@@ -79,8 +81,9 @@ class UserController extends Controller
             $this->uploadUserImage($photo, $photoName);
             $data['photo'] = $photoName;
         }
+        $user = User::create($data);
 
-        User::create($data);
+        $user->assignRole(explode(',', $request->userNewRoles));
         return redirect()->route('admin.user.index')->with('success', __('backend.User created'));
     }
 
@@ -101,7 +104,12 @@ class UserController extends Controller
         if(is_null($user))
             abort(404);
 
-        return view('backend.user.edit', ['user' => $user, 'pageTitle' => __('backend.Edit user')]);
+        $userRoles = $user->roles->pluck('name')->toArray();
+        $allOtherRoles = Role::get()->filter(function($role) use ($user) {
+            return !$user->hasRole($role->name);
+        })->pluck('name')->toArray();                     // All roles just names
+
+        return view('backend.user.edit', ['user' => $user, 'allOtherRoles' => $allOtherRoles, 'userRoles' =>$userRoles, 'pageTitle' => __('backend.Edit user')]);
     }
     function update(Request $request, $id)
     {
@@ -121,8 +129,11 @@ class UserController extends Controller
             $data['photo'] = $photoName;
             $this->deleteUserImages($user);
         }
-
         $user->update($data);
+
+        if($request->userNewRoles !== "empty")      // if roles changed
+            $user->syncRoles(explode(',', $request->userNewRoles));         // remove old roles and assign new
+
         return redirect()->route('admin.user.index')->with('success', __('backend.User updated'));
     }
 

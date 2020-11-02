@@ -21,7 +21,7 @@
         </div>
         <div class="form-group form-row">
             <div class="col">
-                <input type="number" class="form-control price @error('price') is-invalid @enderror" id="price" name="price" placeholder="Product price" value="{{ old('price') }}">
+                <input type="text" class="form-control price @error('price') is-invalid @enderror" id="price" name="price" placeholder="Product price" value="{{ old('price') }}">
                 @error('price')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror

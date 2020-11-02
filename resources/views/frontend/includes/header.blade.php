@@ -6,7 +6,7 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="header__top__left">
                         <ul>
-                            <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                            <li><i class="fa fa-envelope"></i> info@store.com</li>
                             <li>Free Shipping for all Order of $99</li>
                         </ul>
                     </div>
@@ -79,7 +79,8 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="header__logo">
-                    <a href="{{ url('/') }}"><img src="{{asset('frontend')}}/img/logo.png" alt=""></a>
+                    {{--<a href="{{ url('/') }}"><img src="{{asset('frontend')}}/img/logo.png" alt=""></a>--}}
+                    <h2 class="display-4">Logo</h2>
                 </div>
             </div>
             <div class="col-lg-6">

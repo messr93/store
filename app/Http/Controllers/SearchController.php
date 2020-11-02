@@ -11,7 +11,7 @@ class SearchController extends Controller
 {
 
     public function searchProducts(){
-        $foreignColumns = ['user_id', 'category'];
+        $foreignColumns = ['user_id'];
         $products = new Product();
         foreach(request()->all() as $key=>$value){
             if(request($key) == "_token" || request($key) == "user_id" || !Schema::hasColumn('products', $key))       // if request key not column in product table OR = it's token then continue

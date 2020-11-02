@@ -12,6 +12,8 @@ return [
     'Description' => 'Description',
 
     'Roles' => 'Roles',
+    'Add role' => 'Add role',
+    'Select new role' => 'Select new role',
     'Permissions' => 'Permissions',
     'admin' => 'admin',
     'vendor' => 'vendor',

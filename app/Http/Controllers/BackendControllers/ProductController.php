@@ -56,7 +56,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
+        //return $request->all();
         $request->validate($this->getCreateValidateRules($request));
 
         $data = $request->except(['_token', 'related_photo', 'photo']);
@@ -197,8 +197,8 @@ class ProductController extends Controller
             'category' => 'required',
             'name' => 'required|string|unique:products,name',
             'details' => 'string',
-            'price' => 'required|numeric',
-            'discount' => 'integer',
+            'price' => 'required|numeric|min:5',
+            'discount' => 'integer|min:0',
             'photo' => 'required|image|dimensions:min_width=1200,min_height=700',
             'description' => 'required|string',
             'status' => 'required|integer|min:0|max:1',
@@ -215,8 +215,8 @@ class ProductController extends Controller
         $rules = [
             'details' => 'string',
             'category' => 'required',
-            'price' => 'required|numeric',
-            'discount' => 'integer',
+            'price' => 'required|numeric|min:5',
+            'discount' => 'integer|min:0',
             'description' => 'required|string',
             'status' => 'required|integer|min:0|max:1',
             'photo' => 'image|dimensions:min_width=1200,min_height=700',

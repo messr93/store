@@ -77,6 +77,7 @@ class CartController extends Controller
     }
 
 
+    ###########################################################################################################
     public function checkout(){     /// go to checkout page ///
 
         $items = auth()->user()->cartItems;      // all items in cart for this user

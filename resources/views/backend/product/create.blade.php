@@ -27,14 +27,14 @@
         <div class="form-group form-row">
             <div class="col">
                 <label for="price">{{ __('backend.Product price') }}:</label>
-                <input type="number" class="form-control price @error('price') is-invalid @enderror" id="price" name="price" placeholder="{{__('backend.Product price')}}" value="{{ old('price') }}">
+                <input type="text" class="form-control price @error('price') is-invalid @enderror" id="price" name="price" placeholder="{{__('backend.Product price')}}" value="{{ old('price') }}">
                 @error('price')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
             <div class="col">
                 <label for="discount">{{ __('backend.Product discount') }}:</label>
-                <input type="number" class="form-control discount @error('discount') is-invalid @enderror" id="discount" name="discount" placeholder="{{__('backend.Product discount')}} %" value="{{ old('discount') }}">
+                <input type="number" class="form-control discount @error('discount') is-invalid @enderror" id="discount" name="discount" placeholder="{{__('backend.Product discount')}} %" value="{{ old('discount')?old('discount'):0 }}">
                 @error('discount')
                 <span class="text-danger">{{ $message }}</span>
                 @enderror

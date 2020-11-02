@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('photo')->default('default_img.jpg');
             $table->string('details')->nullable();
             $table->integer('price');
-            $table->integer('discount')->nullable();
+            $table->integer('discount')->default(0);
             $table->integer('rating')->default(0);
             $table->text('description');
 

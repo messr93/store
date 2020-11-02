@@ -29,6 +29,15 @@ class Product extends Model
         return $this->hasMany(ProductPhoto::class);
     }
 
+    ############################################### Accessors & Mutators  ###############################################
+
+    public function setPriceAttribute($price){
+        $this->attributes['price'] = (int)($price*100);
+    }
+
+    public function getPriceAttribute($price){
+        return (float)($price/100);
+    }
 
     ############################################### Other functions  ###############################################
     public function getRouteKeyName(){
@@ -36,7 +45,9 @@ class Product extends Model
     }
 
     public function finalPrice(){
-        return ($this->price - (($this->price*$this->discount)/100));   // final price after discount
+        return round(($this->price - (($this->price*$this->discount)/100)), 2);   // final price after discount
     }
+
+
 
 }

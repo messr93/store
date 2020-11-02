@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\BackendControllers;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -10,6 +11,8 @@ class DashboardController extends Controller
 
     public function index(){
         changeLang('ar');
-        return view('dashboard', ['pageTitle' => __('backend.dashboard')]);
+        $membersCount = User::count();
+
+        return view('dashboard', ['membersCount' => $membersCount, 'pageTitle' => __('backend.dashboard')]);
     }
 }

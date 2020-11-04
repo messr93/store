@@ -4,13 +4,15 @@
     <form action="{{ route('admin.product.store') }}" method="post" id="add_product" enctype="multipart/form-data">@csrf
         <div class="form-group">
             <label for="category">{{ __('backend.Select category') }}:</label>
-            <select name="category" id="category" class="form-control category @error('category') is-invalid @enderror">
+            <select id="select_category" name="category" id="category" class="form-control category @error('category') is-invalid @enderror">
                 <option disabled selected>{{ __('backend.Select category') }}</option>
                 @foreach($mainCategories as $mainCategory)
-                    <option value="{{ $mainCategory->slug }}">{{ $mainCategory->name }}</option>
-                    @foreach($mainCategory->subcategories as $subCategory)
-                        <option value="{{ $subCategory->slug }}">-- {{ $subCategory->name }} --</option>
-                    @endforeach
+                    <optgroup label="{{ $mainCategory->name }}">
+                        <option value="{{ $mainCategory->slug }}">{{ $mainCategory->name }}</option>
+                        @foreach($mainCategory->subcategories as $subCategory)
+                            <option value="{{ $subCategory->slug }}">{{ $subCategory->name }}</option>
+                        @endforeach
+                    </optgroup>
                 @endforeach
             </select>
             @error('category')
@@ -94,6 +96,10 @@
 @push('js')
     <script>
         $(document).ready(function(){
+
+            $(document).ready(function() {
+                $('#select_category').select2();
+            });
             //////////////////////////////////////////////// Begin show selected related Photos /////////////////////////////////
             function readURL(input) {
                 var images_album = $('#related_photo_gallery');

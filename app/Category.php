@@ -32,6 +32,6 @@ class Category extends Model
 
     ############################################### other functions  ###############################################
     public function scopeTopCategories($q){
-        return $q->get()->sortByDesc(function($q){return $q->products()->count();})->take(11);
+        return $q->where('parent', 0)->get()->sortByDesc(function($q){return $q->products()->count();})->take(11);
     }
 }

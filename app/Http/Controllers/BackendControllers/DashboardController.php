@@ -10,7 +10,7 @@ class DashboardController extends Controller
 {
 
     public function index(){
-        changeLang('ar');
+        //changeLang('ar');
         $membersCount = User::count();
 
         return view('dashboard', ['membersCount' => $membersCount, 'pageTitle' => __('backend.dashboard')]);

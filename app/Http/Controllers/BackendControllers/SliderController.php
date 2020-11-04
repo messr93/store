@@ -15,7 +15,7 @@ class SliderController extends Controller
 
     public function __construct()
     {
-        changeLang('ar');
+        //changeLang('ar');
     }
 
 

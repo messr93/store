@@ -28,6 +28,8 @@
     <!-- Datatable -->
     <link rel="stylesheet" href="{{asset('vendor/datatables//css/jquery.dataTables.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/datatables//css/buttons.dataTables.min.css')}}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{asset('vendor/select2/select2.min.css')}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     @stack('css')
@@ -103,6 +105,10 @@
 <script src="{{asset('vendor/datatables/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('vendor/datatables/js/dataTables.buttons.min.js')}}"></script>
 <script src="{{asset('vendor/datatables/js/buttons.server-side.js')}}"></script>
+
+<!-- Select2 -->
+<script src="{{asset('vendor/select2/select2.min.js')}}"></script>
+
 
 @stack('js')
 </body>

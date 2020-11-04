@@ -67,7 +67,9 @@ class CartController extends Controller
         $cart->save();
 
         $subTotal = $request->user()->cartSubTotal();                       // TODO Coupon have no effext yet
-        return response()->json(['cart' => $cart, 'subTotal' => $subTotal]);
+        $minus = Coupon::calculateMinus($subTotal);
+        $total = $subTotal - $minus;
+        return response()->json(['cart' => $cart, 'subTotal' => $subTotal, 'minus' => $minus, 'total' => $total]);
     }
 
     public function destroy(Cart $cart)

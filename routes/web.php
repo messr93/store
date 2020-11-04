@@ -51,7 +51,7 @@ Route::group(['middleware' => ['role:vendor']], function(){
 });
 ///////////
 
-Route::get('search/products', 'SearchController@searchProducts')->name('search.products');
+Route::post('search/products', 'SearchController@searchProducts')->name('search.products');
 #####
 
 Route::get('profile', 'ProfileController@index')->name('profile.index');
@@ -60,3 +60,6 @@ Route::get('change-password', 'ProfileController@changePasswordView')->name('pro
 Route::post('change-password', 'ProfileController@changePassword')->name('profile.changePassword');
 
 Route::post('notification/mark-as-read', 'NotificationController@markAsRead')->name('notification.markAsRead');
+
+Route::get('changeLocale/{lang}', 'BackendControllers\LangController@changeLocale')->name('lang.changeLocale');
+

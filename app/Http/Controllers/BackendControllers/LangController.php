@@ -12,7 +12,7 @@ class LangController extends Controller
 {
 
     public function __construct(){
-        changeLang('ar');
+        //changeLang('ar');
 
     }
 
@@ -124,5 +124,10 @@ class LangController extends Controller
 
         $lang->delete();
         return response()->json(['data' => $lang], 200);
+    }
+
+    public function changeLocale($lang){
+        changeLang($lang);
+        return redirect()->back();
     }
 }

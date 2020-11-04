@@ -62,25 +62,29 @@
     <script>
     $(document).ready(function(){
 
-    //////////////////////////////////////////////// Begin show selected cover photo /////////////////////////////////
-    function readURLCover(input) {
-    var images_album = $('#photo_gallery');
-    //$(images_album).empty();
+        $(document).ready(function() {
+            $('#parent').select2();
+        });
 
-    if (input.files && input.files[0] && input.files[0]['type'].includes('image/')) {
-    var reader= new FileReader();
-    reader.onload = function(e) {
-        $(images_album).html("<img src="+e.target.result+" style=\'width: 250px; height: 150px; margin: 10px\'>");
-    }
-    reader.readAsDataURL(input.files[0]); // convert to base64 string
-    }
-    }
+        //////////////////////////////////////////////// Begin show selected cover photo /////////////////////////////////
+        function readURLCover(input) {
+        var images_album = $('#photo_gallery');
+        //$(images_album).empty();
 
-    $(document).on('change', '#photo', function(){
-        readURLCover(this);
-    })
+        if (input.files && input.files[0] && input.files[0]['type'].includes('image/')) {
+        var reader= new FileReader();
+        reader.onload = function(e) {
+            $(images_album).html("<img src="+e.target.result+" style=\'width: 250px; height: 150px; margin: 10px\'>");
+        }
+        reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+        }
 
-    ///////////////////////////////////////// End show selected cover photo /////////////////////////////////////////////////////////
+        $(document).on('change', '#photo', function(){
+            readURLCover(this);
+        })
+
+        ///////////////////////////////////////// End show selected cover photo /////////////////////////////////////////////////////////
 
     });
     </script>

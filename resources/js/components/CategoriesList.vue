@@ -1,6 +1,6 @@
 <template>
     <ul id="categ_ul list-group" style="padding: 0px">
-        <li class="list-group-item font-weight-bold text-center bg-light" v-for="category in categories"><a class="text-primary" :href="'search/products?category='+category.slug">{{ category.name}}</a></li>
+        <li class="list-group-item font-weight-bold text-center bg-light" v-for="category in categories"><a class="text-primary" :href="'category/'+category.slug">{{ category.name}}</a></li>
     </ul>
 </template>
 

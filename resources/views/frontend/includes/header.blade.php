@@ -19,14 +19,23 @@
                             <a href="#"><i class="fa fa-linkedin"></i></a>
                             <a href="#"><i class="fa fa-pinterest-p"></i></a>
                         </div>
-                        <div class="header__top__right__language">
-                            <img src="{{asset('frontend')}}/img/language.png" alt="">
-                            <div>English</div>
-                            <span class="arrow_carrot-down"></span>
-                            <ul>
-                                <li><a href="#">Arabic</a></li>
-                                <li><a href="#">English</a></li>
-                            </ul>
+                        <div class="header__top__right__language">                  {{--Just two langs make it simple--}}
+                            @if(app()->getLocale() == 'en')
+                                {{--<img src="{{asset('frontend')}}/img/language.png" alt="">--}}
+                                <div class="font-weight-bold">{{ __('backend.English') }}</div>
+                                <span class="arrow_carrot-down"></span>
+                                <ul>
+                                    <li><a href="{{ route('lang.changeLocale', 'ar') }}">{{ __('backend.Arabic') }}</a></li>
+                                </ul>
+                            @else
+                                {{--<img src="{{asset('frontend')}}/img/language.png" alt="">--}}
+                                <div class="font-weight-bold">{{ __('backend.Arabic') }}</div>
+                                <span class="arrow_carrot-down"></span>
+                                <ul>
+                                    <li><a href="{{ route('lang.changeLocale', 'en') }}">{{ __('backend.English') }}</a></li>
+                                </ul>
+                            @endif
+
                         </div>
                         @guest()
                             <div class="header__top__right__auth">
@@ -83,12 +92,12 @@
                     <h2 class="display-4">Logo</h2>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 <nav class="header__menu">
                     <ul>
-                        <li class="active"><a href="{{ url('/') }}">Home</a></li>
-                        <li><a href="{{ route('shop.index') }}">Shop</a></li>
-                        <li><a href="#">Pages</a>
+                        <li class="active"><a href="{{ url('/') }}">{{__('front.Home')}}</a></li>
+                        <li><a href="{{ route('shop.index') }}">{{__('front.Shop')}}</a></li>
+                        <li><a href="#">{{__('front.Pages')}}</a>
                             <ul class="header__menu__dropdown">
                                 <li><a href="{{asset('frontend')}}/pages/shop-details.html">Shop Details</a></li>
                                 <li><a href="{{ route('cart.index') }}">Shoping Cart</a></li>
@@ -96,12 +105,12 @@
                                 <li><a href="{{asset('frontend')}}/pages/blog-details.html">Blog Details</a></li>
                             </ul>
                         </li>
-                        <li><a href="{{asset('frontend')}}/pages/blog.html">Blog</a></li>
-                        <li><a href="{{asset('frontend')}}/pages/contact.html">Contact</a></li>
+                        <li><a href="{{asset('frontend')}}/pages/blog.html">{{__('front.Blog')}}</a></li>
+                        <li><a href="{{asset('frontend')}}/pages/contact.html">{{__('front.Contact')}}</a></li>
                     </ul>
                 </nav>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <div class="header__cart">
                     <ul>
                         <li>

@@ -112,7 +112,8 @@
                        console.log(data);
                        $(this).parents('tr').find('.shoping__cart__total').text('$'+(data.cart.price*data.cart.qty));
                        $('#subtotal').text('$'+data.subTotal);
-                       $('#total').text('$'+data.subTotal);
+                       $('#minus').text('-$'+data.minus);
+                       $('#total').text('$'+data.total);
                    },
                    error: (err)=>{
                        console.log('err');

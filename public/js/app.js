@@ -37676,7 +37676,7 @@ var render = function() {
             "a",
             {
               staticClass: "text-primary",
-              attrs: { href: "search/products?category=" + category.slug }
+              attrs: { href: "category/" + category.slug }
             },
             [_vm._v(_vm._s(category.name))]
           )

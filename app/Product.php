@@ -22,22 +22,16 @@ class Product extends Model
     public function reviews(){
         return $this->hasMany(ProductReview::class);
     }
-    public function orders(){
-        return $this->belongsToMany(Order::class, 'order_products', 'product_id', 'order_id');
-    }
     public function relatedPhotos(){
         return $this->hasMany(ProductPhoto::class);
+    }
+    public function orders(){
+        return $this->belongsToMany(Order::class, 'order_products', 'product_id', 'order_id');
     }
 
     ############################################### Accessors & Mutators  ###############################################
 
-    public function setPriceAttribute($price){
-        $this->attributes['price'] = (int)($price*100);
-    }
-
-    public function getPriceAttribute($price){
-        return (float)($price/100);
-    }
+    //
 
     ############################################### Other functions  ###############################################
     public function getRouteKeyName(){

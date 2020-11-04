@@ -7,7 +7,7 @@
                     <div class="hero__categories">
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
-                            <span>All departments</span>
+                            <span>{{__('front.All departments')}}</span>
                         </div>
                         <categories-list></categories-list>
                     </div>
@@ -15,13 +15,11 @@
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
-                                <div class="hero__search__categories">
-                                    All Categories
-                                    <span class="arrow_carrot-down"></span>
-                                </div>
-                                <input type="text" placeholder="What do yo u need?">
-                                <button type="submit" class="site-btn">SEARCH</button>
+                            <form action="{{ route('search.products') }}" method="post">@csrf
+                                <input type="text" name="name" id="search_name" placeholder="What do yo u need?">
+                                <input type="hidden" id="search_details" name="details">
+                                <input type="hidden" id="search_description" name="description">
+                                <button type="submit" class="site-btn">{{__('front.SEARCH')}}</button>
                             </form>
                         </div>
                         <div class="hero__search__phone">
@@ -51,7 +49,7 @@
     <!-- sale_off Section Begin -->
     <section class="sale_off">
         <div class="container">
-            <div class="section-title"><h2 class="mx-auto my-5">- Sale Off -</h2></div>
+            <div class="section-title"><h2 class="mx-auto my-5">- {{__('front.Sale Off')}} -</h2></div>
             <div class="row">
                 <div class="product__discount__slider owl-carousel">
                     @foreach($saleProducts as $product)
@@ -120,7 +118,7 @@
             <div class="row">
                 <div class="col-6">
                     <div class="latest-product__text">
-                        <h4>Latest Products</h4>
+                        <h4>{{__('front.Latest Products')}}</h4>
                         <div class="latest-product__slider owl-carousel">
                             @foreach($latestProducts as $chuckProducts)
                                 <div class="latest-prdouct__slider__item">
@@ -142,7 +140,7 @@
                 </div>
                 <div class="col-6">
                     <div class="latest-product__text">
-                        <h4>Top Rated Products</h4>
+                        <h4>{{__('front.Top Rated Products')}}</h4>
                         <div class="latest-product__slider owl-carousel">
                             @foreach($topRatedProducts as $chuckProducts)
                                 <div class="latest-prdouct__slider__item">

@@ -10,25 +10,27 @@
                             <h4>Categories</h4>
                             <ul>
                                 @foreach($categories as $category)
-                                    <li><a href="{{route('search.products', ['category' => $category->slug])}}">{{ $category->name }}</a></li>
+                                    <li><a href="{{route('category.show', ['category' => $category->slug])}}">{{ $category->name }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
                         <div class="sidebar__item">
                             <h4>Price</h4>
                             <div class="price-range-wrap">
-                                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                     data-min="10" data-max="540">
-                                    <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
-                                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                                </div>
-                                <div class="range-slider">
-                                    <div class="price-input">
-                                        <input type="text" id="minamount" name="minamount">
-                                        <input type="text" id="maxamount" name="maxamount">
+                                <form action="{{ route('search.products') }}" method="post">@csrf
+                                    <input type="hidden" name="category_selected" value="{{ isset($categorySelected)? $categorySelected: 'empty' }}">
+                                    <div class="form-group form-row">
+                                        <div class="col">
+                                            <label for="min_price">min price :</label>
+                                            <input type="text" id="min_price" name="min_price" class="form-control">
+                                        </div>
+                                        <div class="col">
+                                            <label for="max_price">max price :</label>
+                                            <input type="text" id="max_price" name="max_price" class="form-control">
+                                        </div>
                                     </div>
-                                </div>
+                                    <button type="submit" style="border: 0">Search</button>
+                                </form>
                             </div>
                         </div>
                         <div class="sidebar__item sidebar__item__color--option">
@@ -105,6 +107,9 @@
                                    <img src="{{ url('uploads/product/cover/255x255/'.$product->photo) }}">
                                     <div class="product__item__text">
                                         <h6>{{ $product->name }}</h6>
+                                        @if($product->discount > 0)
+                                            <h6 style="text-decoration: line-through; color: grey; margin-bottom: 0px"> {{ $product->price }} </h6>
+                                        @endif
                                         <h5>${{ $product->finalPrice() }}</h5>
                                     </div>
                                 </div>
@@ -124,9 +129,3 @@
     </section>
     <!-- Product Section End -->
 @endsection
-
-@push('js')
-    <script>
-        console.log();
-    </script>
-@endpush

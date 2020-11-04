@@ -146,4 +146,7 @@ return [
     'allDayText' => "اليوم كله",
     'moreLinkText' => "أخرى",
     'noEventsText' => "أي أحداث لعرض",
+
+    'English' => 'English',
+    'Arabic' => 'عربي',
 ];

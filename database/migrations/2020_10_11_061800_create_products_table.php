@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->tinyInteger('status')->default(1);
             $table->string('photo')->default('default_img.jpg');
             $table->string('details')->nullable();
-            $table->integer('price');
+            $table->decimal('price', 13, 2)->unsigned();
             $table->integer('discount')->default(0);
             $table->integer('rating')->default(0);
             $table->text('description');

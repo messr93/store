@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('content')
     @include('frontend.includes.search-bar')
-    <form action="{{ route('order.finishOrder',['dxxx' => 'xxxxx']) }}" class="paymentWidgets" data-brands="VISA MASTER"></form>
+    <form action="{{ route('order.finishOrder') }}" class="paymentWidgets" data-brands="VISA MASTER"></form>
     @include('frontend.includes.modals')
 @endsection
 

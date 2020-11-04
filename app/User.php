@@ -42,15 +42,12 @@ class User extends Authenticatable
     public function products(){
         return $this->hasMany(Product::class);
     }
-
     public function cartItems(){
         return $this->hasMany(Cart::class);
     }
-
     public function cartProducts(){
-        return $this->belongsToMany(Product::class, 'carts', 'user_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'carts', 'user_id', 'product_id')->withPivot('qty');
     }
-
     public function orders(){
         return $this->hasMany(Order::class);
     }

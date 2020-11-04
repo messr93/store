@@ -13,9 +13,8 @@ class LandingPageController extends Controller
 
     public function index()
     {
-
-        app()->setLocale('en');
-
+        //return session()->all();
+        //return app()->getLocale();
         $saleProducts = Product::orderBy('discount', 'desc')->limit(10)->get();                                 // 10 products ordered by sale %
         $categories = Category::topCategories();     // 11 categories sort by products count
         $featuredProducts = Product::with(['categ' => function($q){ $q->select('slug', 'id');}])        // random 8 products, belongs to $categories(whereHas)

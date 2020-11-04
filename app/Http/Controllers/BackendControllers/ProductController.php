@@ -19,7 +19,7 @@ class ProductController extends Controller
 
     public function __construct()
     {
-        changeLang('ar');
+        //changeLang('ar');
     }
 
     public function index()

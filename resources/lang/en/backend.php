@@ -148,5 +148,7 @@ return [
     'moreLinkText' => "moreLinkText",
     'noEventsText' => "noEventsText",
 
+    'English' => 'English',
+    'Arabic' => 'عربي',
 
 ];

@@ -13,7 +13,7 @@ class CategoryController extends Controller
     use HandleImages;
 
     public function __construct(){
-        changeLang('ar');
+        //changeLang('ar');
 
     }
 

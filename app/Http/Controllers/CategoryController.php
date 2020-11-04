@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Product;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -46,7 +47,11 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return view('frontend.category.show', ['category' => $category]);
+        $categories = Category::topCategories();
+        $products = Product::where('category', $category->slug)->paginate(12);
+        $count = $products->count();
+
+        return view('frontend.pages.shop', ['categorySelected' => $category->slug,'categories' => $categories, 'products' => $products, 'count' => $count]);
     }
 
     /**
